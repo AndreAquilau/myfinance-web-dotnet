@@ -1,2 +1,3 @@
 # myfinance-web-dotnet
-PucMinas - Aplicação web para que famílias possam registrar suas receitas e despesas para análise de seus gastos.
+Esta aplicação deve permitir que o usuário monte uma espécie de Plano de Contas para categorizar
+todas as Transações realizadas.
