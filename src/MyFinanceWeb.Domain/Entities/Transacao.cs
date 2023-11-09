@@ -1,8 +1,11 @@
-﻿namespace MyFinanceWeb.Domain.Models;
+﻿namespace MyFinanceWeb.Domain.Entities;
 
 public class Transacao
 {
-    public Transacao() { }
+    public Transacao()
+    {
+        PlanoContas = new List<PlanoConta>();
+    }
 
     public int Id { get; set; }
 

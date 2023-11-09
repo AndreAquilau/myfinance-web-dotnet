@@ -1,4 +1,4 @@
-﻿namespace MyFinanceWeb.Domain.Models;
+﻿namespace MyFinanceWeb.Domain.Entities;
 
 public class PlanoConta
 {
@@ -8,6 +8,6 @@ public class PlanoConta
 
     public char Tipo { get; set;}
 
-    public Transacao Transacao { get; set; }
+    public Transacao? Transacao { get; set; }
 }
 
