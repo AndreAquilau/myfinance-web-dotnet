@@ -12,14 +12,12 @@ public record TransacaoDTO
 
     public string Historico { get; set; } = string.Empty;
 
-    public char Tipo { get; set; }
-
     public decimal Valor { get; set; }
 
     public DateTime Data { get; set; }
 
     public int PlanoContaId { get; set; }
 
-    public IEnumerable<PlanoContaDTO> PlanoContas { get; set; }
+    public required TransacaoDTO Transacao { get; set; }
 }
 

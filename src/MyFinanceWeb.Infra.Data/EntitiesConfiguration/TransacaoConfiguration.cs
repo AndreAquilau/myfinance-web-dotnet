@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyFinanceWeb.Domain.Entities;
 
@@ -12,16 +13,13 @@ public class TransacaoConfiguration : IEntityTypeConfiguration<Transacao>
 
         builder.Property(p => p.Historico).HasMaxLength(256).IsRequired();
 
-        builder.Property(p => p.Tipo).HasMaxLength(5000).IsRequired();
-
-        builder.Property(p => p.Valor).HasPrecision(10, 2).IsRequired();
+        builder.Property(p => p.Valor).HasPrecision(18, 2).IsRequired();
 
         builder.Property(p => p.PlanoContaId);
 
+        builder.HasOne(p => p.PlanoConta).WithMany(p => p.Transacoes).HasForeignKey(p => p.PlanoContaId);
 
-        builder.HasMany(p => p.PlanoContas).WithOne(p => p.Transacao).HasForeignKey(p => p.Id);
-
-        IEnumerable<Transacao> defaultValues = new List<Transacao>()
+        List<Transacao> defaultValues = new List<Transacao>()
         {
             new Transacao()
             {

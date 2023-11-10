@@ -2,16 +2,9 @@
 
 public class Transacao
 {
-    public Transacao()
-    {
-        PlanoContas = new List<PlanoConta>();
-    }
-
     public int Id { get; set; }
 
     public string Historico { get; set; } = string.Empty;
-
-    public char Tipo { get; set; }
 
     public decimal Valor { get; set; }
 
@@ -19,7 +12,7 @@ public class Transacao
 
     public int PlanoContaId { get; set; }
 
-    public IEnumerable<PlanoConta> PlanoContas { get; set; }
+    public PlanoConta? PlanoConta { get; set; }
 
 }
 

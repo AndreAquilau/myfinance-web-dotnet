@@ -6,22 +6,22 @@ namespace MyFinanceWeb.Infra.Data.Context;
 
 public class MyFinanceDbContext : DbContext
 {
-    private IConfiguration _conf;
 
     public DbSet<PlanoConta> PlanoConta { get; set; }
 
     public DbSet<Transacao> Transacao { get; set; }
 
 
-    public MyFinanceDbContext(DbContextOptions<MyFinanceDbContext> options, IConfiguration conf) : base(options) { 
-        _conf = conf;
+    public MyFinanceDbContext(DbContextOptions<MyFinanceDbContext> options) : base(options)
+    {
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        var connectionString = _conf.GetConnectionString("DefaultConnection");
+        base.OnModelCreating(modelBuilder);
 
-        optionsBuilder.UseSqlServer(connectionString, b => b.MigrationsAssembly(typeof(MyFinanceDbContext).Assembly.FullName));
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(MyFinanceDbContext).Assembly);
+
     }
 
 }

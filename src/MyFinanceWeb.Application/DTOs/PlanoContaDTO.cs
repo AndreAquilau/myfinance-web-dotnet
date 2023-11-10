@@ -13,5 +13,7 @@ public record PlanoContaDTO
     public string Descricao { get; set; } = string.Empty;
 
     public char Tipo { get; set; }
+
+    public required IEnumerable<TransacaoDTO> Transacoes { get; set; }
 }
 

@@ -14,7 +14,7 @@ public class PlanoContaConfiguration : IEntityTypeConfiguration<PlanoConta>
 
         builder.Property(p => p.Tipo).HasMaxLength(1).IsRequired();
 
-        IEnumerable<PlanoConta> defaultValues = new List<PlanoConta>()
+        List<PlanoConta> defaultValues = new List<PlanoConta>()
         {
             new PlanoConta()
             {
