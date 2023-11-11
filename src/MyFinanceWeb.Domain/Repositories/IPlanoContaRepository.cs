@@ -11,8 +11,8 @@ public interface IPlanoContaRepository
 {
     Task<IEnumerable<PlanoConta>> FindAll();
     Task<PlanoConta> FindById(int id);
-    Task<PlanoConta> Create(PlanoConta transacao);
+    Task<PlanoConta> Create(PlanoConta planoConta);
     Task<PlanoConta> Delete(int id);
-    Task<PlanoConta> Update(PlanoConta transacao);
+    Task<PlanoConta> Update(PlanoConta planoConta);
 }
 

@@ -18,6 +18,10 @@
     <ProjectReference Include="..\MyFinanceWeb.Domain\MyFinanceWeb.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
