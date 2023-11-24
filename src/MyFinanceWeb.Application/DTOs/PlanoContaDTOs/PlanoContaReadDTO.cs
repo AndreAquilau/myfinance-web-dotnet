@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyFinanceWeb.Application.DTOs.TransacaoDTOs;
 
-namespace MyFinanceWeb.Application.DTOs;
+namespace MyFinanceWeb.Application.DTOs.PlanoContaDTOs;
 
-public record PlanoContaDTO
+public record PlanoContaReadDTO
 {
     public int Id { get; set; }
 
@@ -14,6 +15,5 @@ public record PlanoContaDTO
 
     public char Tipo { get; set; }
 
-    public required IEnumerable<TransacaoDTO> Transacoes { get; set; }
 }
 

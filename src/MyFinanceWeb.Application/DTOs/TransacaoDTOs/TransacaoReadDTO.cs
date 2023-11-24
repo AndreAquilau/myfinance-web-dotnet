@@ -1,12 +1,13 @@
-﻿using System;
+﻿using MyFinanceWeb.Application.DTOs.PlanoContaDTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyFinanceWeb.Application.DTOs;
+namespace MyFinanceWeb.Application.DTOs.TransacaoDTOs;
 
-public record TransacaoDTO
+public record TransacaoReadDTO
 {
     public int Id { get; set; }
 
@@ -18,6 +19,6 @@ public record TransacaoDTO
 
     public int PlanoContaId { get; set; }
 
-    public required TransacaoDTO Transacao { get; set; }
+    public required PlanoContaReadDTO PlanoConta { get; set; }
 }
 

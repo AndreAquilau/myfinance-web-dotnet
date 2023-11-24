@@ -1,4 +1,4 @@
-﻿using MyFinanceWeb.Application.DTOs;
+﻿using MyFinanceWeb.Application.DTOs.TransacaoDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +9,10 @@ namespace MyFinanceWeb.Application.Interfaces;
 
 public interface ITransacaoService
 {
-    Task<IEnumerable<TransacaoDTO>> FindAll();
-    Task<TransacaoDTO> FindById(int id);
-    Task<TransacaoDTO> Create(TransacaoDTO transacao);
-    Task<TransacaoDTO> Delete(int id);
-    Task<TransacaoDTO> Update(TransacaoDTO transacao);
+    Task<IEnumerable<TransacaoReadDTO>> FindAll();
+    Task<TransacaoReadDTO> FindById(int id);
+    Task<TransacaoReadDTO> Create(TransacaoCreateDTO transacaoCreateDTO);
+    Task<TransacaoReadDTO> Delete(int id);
+    Task<TransacaoReadDTO> Update(TransacaoUpdateDTO transacaoUpdateDTO);
 }
 

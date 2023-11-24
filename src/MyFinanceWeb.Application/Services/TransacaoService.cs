@@ -1,4 +1,4 @@
-﻿using MyFinanceWeb.Application.DTOs;
+﻿using MyFinanceWeb.Application.DTOs.TransacaoDTOs;
 using MyFinanceWeb.Application.Interfaces;
 using System;
 using System.Collections.Generic;
