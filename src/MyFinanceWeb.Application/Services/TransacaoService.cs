@@ -10,27 +10,27 @@ namespace MyFinanceWeb.Application.Services;
 
 public class TransacaoService : ITransacaoService
 {
-    public Task<TransacaoDTO> Create(TransacaoDTO transacao)
+    public Task<TransacaoReadDTO> Create(TransacaoCreateDTO transacaoCreateDTO)
     {
         throw new NotImplementedException();
     }
 
-    public Task<TransacaoDTO> Delete(int id)
+    public Task<TransacaoReadDTO> Delete(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<TransacaoDTO>> FindAll()
+    public Task<IEnumerable<TransacaoReadDTO>> FindAll()
     {
         throw new NotImplementedException();
     }
 
-    public Task<TransacaoDTO> FindById(int id)
+    public Task<TransacaoReadDTO> FindById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<TransacaoDTO> Update(TransacaoDTO transacao)
+    public Task<TransacaoReadDTO> Update(TransacaoUpdateDTO transacaoUpdateDTO)
     {
         throw new NotImplementedException();
     }

@@ -10,27 +10,27 @@ namespace MyFinanceWeb.Application.Services;
 
 public class PlanoContaService : IPlanoContaService
 {
-    public Task<PlanoContaDTO> Create(PlanoContaDTO transacao)
+    public Task<PlanoContaReadDTO> Create(PlanoContaCreateDTO planoContaCreateDTO)
     {
         throw new NotImplementedException();
     }
 
-    public Task<PlanoContaDTO> Delete(int id)
+    public Task<PlanoContaReadDTO> Delete(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<PlanoContaDTO>> FindAll()
+    public Task<IEnumerable<PlanoContaReadDTO>> FindAll()
     {
         throw new NotImplementedException();
     }
 
-    public Task<PlanoContaDTO> FindById(int id)
+    public Task<PlanoContaReadDTO> FindById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Task<PlanoContaDTO> Update(PlanoContaDTO transacao)
+    public Task<PlanoContaReadDTO> Update(PlanoContaUpdateDTO planoContaUpdateDTO)
     {
         throw new NotImplementedException();
     }
