@@ -4,3 +4,9 @@ todas as Transações realizadas.
 
 ### Fluxo MyFinaceWeb
 ![Fluxo MyFinace](./diagrama/MyFinaceArquitecure.drawio.png)
+
+### Start Project
+Starting Application in mode Development
+```powershell
+dotnet watch run --project .\MyFinanceWeb.Web\ --environment Development
+```
