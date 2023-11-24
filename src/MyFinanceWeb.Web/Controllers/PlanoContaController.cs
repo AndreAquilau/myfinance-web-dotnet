@@ -21,9 +21,12 @@ namespace MyFinanceWeb.Web.Controllers
         }
 
         // GET: PlanoContaController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var planoConta = await _planoContaService.FindById(id);
+            //return View();
+
+            return Ok(planoConta);
         }
 
         // GET: PlanoContaController/Create
