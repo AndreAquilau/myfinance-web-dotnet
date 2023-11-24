@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyFinanceWeb.Application.Interfaces;
+using MyFinanceWeb.Application.Services;
 using MyFinanceWeb.Domain.Repositories;
 using MyFinanceWeb.Infra.Data.Context;
 using MyFinanceWeb.Infra.Data.Repositories;
@@ -18,6 +20,8 @@ public static class DependencyInjection
         );
         services.AddScoped<IPlanoContaRepository, PlanoContaRepository>();
         services.AddScoped<ITransacaoRepository, TransacaoRepository>();
+        services.AddScoped<ITransacaoService, TransacaoService>();
+        services.AddScoped<IPlanoContaService, PlanoContaService>();
 
         return services;
     }

@@ -54,3 +54,5 @@ GO
 
 CREATE INDEX [IX_Transacao_PlanoContaId] ON [Transacao] ([PlanoContaId]);
 GO
+
+COMMIT TRANSACTION;

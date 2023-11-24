@@ -1,14 +1,23 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyFinanceWeb.Application.Interfaces;
 
 namespace MyFinanceWeb.Web.Controllers
 {
     public class PlanoContaController : Controller
     {
-        // GET: PlanoContaController
-        public ActionResult Index()
+        private readonly IPlanoContaService _planoContaService;
+        public PlanoContaController(IPlanoContaService planoContaService)
         {
-            return View();
+            _planoContaService = planoContaService;
+        }
+        // GET: PlanoContaController
+        public async Task<ActionResult> Index()
+        {
+            //return View();
+            var planoContas = await _planoContaService.FindAll();
+
+            return Ok(planoContas);
         }
 
         // GET: PlanoContaController/Details/5

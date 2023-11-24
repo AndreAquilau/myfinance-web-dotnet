@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MyFinanceWeb.Domain\MyFinanceWeb.Domain.csproj" />
     <ProjectReference Include="..\MyFinanceWeb.Infra.Data\MyFinanceWeb.Infra.Data.csproj" />
+    <ProjectReference Include="..\MyFinanceWeb.Application\MyFinanceWeb.Application.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
