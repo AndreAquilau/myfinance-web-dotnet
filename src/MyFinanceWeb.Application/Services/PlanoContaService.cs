@@ -1,5 +1,8 @@
-﻿using MyFinanceWeb.Application.DTOs.PlanoContaDTOs;
+﻿using AutoMapper;
+using MyFinanceWeb.Application.DTOs.PlanoContaDTOs;
 using MyFinanceWeb.Application.Interfaces;
+using MyFinanceWeb.Domain.Entities;
+using MyFinanceWeb.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +13,64 @@ namespace MyFinanceWeb.Application.Services;
 
 public class PlanoContaService : IPlanoContaService
 {
-    public Task<PlanoContaReadDTO> Create(PlanoContaCreateDTO planoContaCreateDTO)
+    private readonly IMapper _mapper;
+    private readonly IPlanoContaRepository _planoContaRepository;
+
+    public PlanoContaService(IPlanoContaRepository planoContaRepository, IMapper mapper)
     {
-        throw new NotImplementedException();
+        _mapper = mapper;
+        _planoContaRepository = planoContaRepository;
     }
 
-    public Task<PlanoContaReadDTO> Delete(int id)
+    public async Task<PlanoContaReadDTO> Create(PlanoContaCreateDTO planoContaCreateDTO)
     {
-        throw new NotImplementedException();
+        PlanoConta planoConta = _mapper.Map<PlanoConta>(planoContaCreateDTO);
+
+        var planoContaCreated = await _planoContaRepository.Create(planoConta);
+
+        PlanoContaReadDTO planoContaRead = _mapper.Map<PlanoContaReadDTO>(planoContaCreated);
+
+        return planoContaRead;
     }
 
-    public Task<IEnumerable<PlanoContaReadDTO>> FindAll()
+    public async Task<PlanoContaReadDTO> Delete(int id)
     {
-        throw new NotImplementedException();
+        var planoContaDeleted = await _planoContaRepository.Delete(id);
+
+        PlanoContaReadDTO planoContaRead = _mapper.Map<PlanoContaReadDTO>(planoContaDeleted);
+
+        return planoContaRead;
     }
 
-    public Task<PlanoContaReadDTO> FindById(int id)
+    public async Task<IEnumerable<PlanoContaReadDTO>> FindAll()
     {
-        throw new NotImplementedException();
+
+        IEnumerable<PlanoConta> planoContas= await _planoContaRepository.FindAll();
+
+        IEnumerable<PlanoContaReadDTO> planoContasRead = _mapper.Map<IEnumerable<PlanoContaReadDTO>>(planoContas);
+
+        return planoContasRead;
     }
 
-    public Task<PlanoContaReadDTO> Update(PlanoContaUpdateDTO planoContaUpdateDTO)
+    public async Task<PlanoContaReadDTO> FindById(int id)
     {
-        throw new NotImplementedException();
+
+        var planoConta = await _planoContaRepository.FindById(id);
+
+        PlanoContaReadDTO planoContaRead = _mapper.Map<PlanoContaReadDTO>(planoConta);
+
+        return planoContaRead;
+    }
+
+    public async Task<PlanoContaReadDTO> Update(PlanoContaUpdateDTO planoContaUpdateDTO)
+    {
+        PlanoConta planoConta = _mapper.Map<PlanoConta>(planoContaUpdateDTO);
+
+        var planoContaUpdated = await _planoContaRepository.Update(planoConta);
+
+        PlanoContaReadDTO planoContaRead = _mapper.Map<PlanoContaReadDTO>(planoContaUpdated);
+
+        return planoContaRead;
     }
 }
 
