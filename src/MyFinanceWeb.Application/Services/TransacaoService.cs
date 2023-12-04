@@ -20,44 +20,44 @@ public class TransacaoService : ITransacaoService
         _mapper = mapper;
         _transacaoRepository = transacaoRepository;
     }
-    public async Task<TransacaoReadDTO> Create(TransacaoCreateDTO transacaoCreateDTO)
+    public async Task<TransacaoDTO> Create(TransacaoDTO transacaoCreateDTO)
     {
         var transacao = _mapper.Map<Transacao>(transacaoCreateDTO);
         var transacaoCreated = await _transacaoRepository.Create(transacao);
-        var transacaoReadDto = _mapper.Map<TransacaoReadDTO>(transacaoCreated);
+        var transacaoReadDto = _mapper.Map<TransacaoDTO>(transacaoCreated);
 
         return transacaoReadDto;
     }
 
-    public async Task<TransacaoReadDTO> Delete(int id)
+    public async Task<TransacaoDTO> Delete(int id)
     {
         var transacaoDelete = await _transacaoRepository.Delete(id);
-        var transacaoReadDto = _mapper.Map<TransacaoReadDTO>(transacaoDelete);
+        var transacaoReadDto = _mapper.Map<TransacaoDTO>(transacaoDelete);
 
         return transacaoReadDto;
     }
 
-    public async Task<IEnumerable<TransacaoReadDTO>> FindAll()
+    public async Task<IEnumerable<TransacaoDTO>> FindAll()
     {
         var transacoes = await _transacaoRepository.FindAll();
-        var transacoesReadDto = _mapper.Map<IEnumerable<TransacaoReadDTO>>(transacoes);
+        var transacoesReadDto = _mapper.Map<IEnumerable<TransacaoDTO>>(transacoes);
 
         return transacoesReadDto;
     }
 
-    public async Task<TransacaoReadDTO> FindById(int id)
+    public async Task<TransacaoDTO> FindById(int id)
     {
         var transacao = await _transacaoRepository.FindById(id);
-        var transacaoReadDto = _mapper.Map<TransacaoReadDTO>(transacao);
+        var transacaoReadDto = _mapper.Map<TransacaoDTO>(transacao);
 
         return transacaoReadDto;
     }
 
-    public async Task<TransacaoReadDTO> Update(TransacaoUpdateDTO transacaoUpdateDTO)
+    public async Task<TransacaoDTO> Update(TransacaoDTO transacaoUpdateDTO)
     {
         var transacao = _mapper.Map<Transacao>(transacaoUpdateDTO);
         var transacaoUpdated = await _transacaoRepository.Update(transacao);
-        var transacaoReadDto = _mapper.Map<TransacaoReadDTO>(transacaoUpdated);
+        var transacaoReadDto = _mapper.Map<TransacaoDTO>(transacaoUpdated);
 
         return transacaoReadDto;
     }

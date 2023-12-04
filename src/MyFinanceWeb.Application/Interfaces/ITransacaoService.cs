@@ -9,10 +9,10 @@ namespace MyFinanceWeb.Application.Interfaces;
 
 public interface ITransacaoService
 {
-    Task<IEnumerable<TransacaoReadDTO>> FindAll();
-    Task<TransacaoReadDTO> FindById(int id);
-    Task<TransacaoReadDTO> Create(TransacaoCreateDTO transacaoCreateDTO);
-    Task<TransacaoReadDTO> Delete(int id);
-    Task<TransacaoReadDTO> Update(TransacaoUpdateDTO transacaoUpdateDTO);
+    Task<IEnumerable<TransacaoDTO>> FindAll();
+    Task<TransacaoDTO> FindById(int id);
+    Task<TransacaoDTO> Create(TransacaoDTO transacaoDTO);
+    Task<TransacaoDTO> Delete(int id);
+    Task<TransacaoDTO> Update(TransacaoDTO transacaoDTO);
 }
 
