@@ -9,7 +9,10 @@ Starting Application in mode Development
 dotnet watch run --project .\MyFinanceWeb.Web\ --environment Development
 ```
 
-### Arquitetura em Camadas
+### Arquitetura Modular
+![Fluxo MyFinace](./diagrama/Modular.svg)
+
+### Modelagem DDD (Domain Driven Design)
 ![Fluxo MyFinace](./diagrama/DDD.svg)
 
 ### Camada de Serviços 
