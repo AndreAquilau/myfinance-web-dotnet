@@ -10,9 +10,9 @@ dotnet watch run --project .\MyFinanceWeb.Web\ --environment Development
 ```
 
 ### Arquitetura em Camadas
-![Fluxo MyFinace](./diagrama/MyFinaceArquitecure.drawio.png)
+![Fluxo MyFinace](./diagrama/DDD.svg)
 
 ### Camada de Serviços 
-![Fluxo MyFinace](./diagrama/services-layer.png)
+![Fluxo MyFinace](./diagrama/Services.svg)
 
 
