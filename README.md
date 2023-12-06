@@ -60,7 +60,7 @@ Ele utiliza o padrão de inversão de controle (IoC) para centralizar a configur
 ![Fluxo MyFinace](./diagrama/Services.svg)
 
 - O Serviço da **Camada de Aplicação** recebe as solicitações da camada de **Apresentação** e executa as operações necessárias.
-- A comunicação entre o Serviço da Camada de Aplicação e a camada de apresentação é feita através de **DTOs**.
+- A comunicação entre o Serviço da Camada de Aplicação e a camada de **Apresentação** é feita através de **DTOs**.
 - Os DTOs são objetos simples que transportam os dados entre as camadas.
 - O Serviço da Camada de Aplicação utiliza um **repositório** de dados para acessar e manipular os dados no banco de dados.
 - O **AutoMapper** é uma ferramenta comumente utilizada para converter os DTOs em entidades do banco de dados.
