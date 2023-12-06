@@ -59,8 +59,7 @@ Ele utiliza o padrão de inversão de controle (IoC) para centralizar a configur
 ### Camada de Serviços 
 ![Fluxo MyFinace](./diagrama/Services.svg)
 
-- A camada de **Apresentação** (UI) e a camada de persistência de dados.
-- O Serviço da **Camada de Aplicação** recebe as solicitações da camada de apresentação e executa as operações necessárias.
+- O Serviço da **Camada de Aplicação** recebe as solicitações da camada de **Apresentação** e executa as operações necessárias.
 - A comunicação entre o Serviço da Camada de Aplicação e a camada de apresentação é feita através de **DTOs**.
 - Os DTOs são objetos simples que transportam os dados entre as camadas.
 - O Serviço da Camada de Aplicação utiliza um **repositório** de dados para acessar e manipular os dados no banco de dados.
