@@ -13,6 +13,6 @@ public class DomainToDTOMappingProfile : Profile
 {
     public DomainToDTOMappingProfile() {
         CreateMap<PlanoContaDTO, PlanoConta>().ReverseMap();
-        CreateMap<TransacaoDTO, Transacao>();
+        CreateMap<TransacaoDTO, Transacao>().ReverseMap();
     }
 }

@@ -19,7 +19,7 @@ public class PlanoContaService : IPlanoContaService
     public PlanoContaService(IPlanoContaRepository planoContaRepository, IMapper mapper)
     {
         _mapper = mapper;
-        _planoContaRepository = planoContaRepository;
+        _planoContaRepository = planoContaRepository ?? throw new ArgumentNullException(nameof(planoContaRepository));
     }
 
     public async Task<PlanoContaDTO> Create(PlanoContaDTO planoContaCreateDTO)

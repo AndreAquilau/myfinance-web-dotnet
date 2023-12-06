@@ -18,7 +18,7 @@ public class TransacaoService : ITransacaoService
     public TransacaoService(ITransacaoRepository transacaoRepository, IMapper mapper)
     {
         _mapper = mapper;
-        _transacaoRepository = transacaoRepository;
+        _transacaoRepository = transacaoRepository ?? throw new ArgumentNullException(nameof(transacaoRepository));
     }
     public async Task<TransacaoDTO> Create(TransacaoDTO transacaoCreateDTO)
     {

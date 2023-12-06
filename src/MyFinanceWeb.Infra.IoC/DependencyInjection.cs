@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyFinanceWeb.Application.Interfaces;
+using MyFinanceWeb.Application.Profiles;
 using MyFinanceWeb.Application.Services;
 using MyFinanceWeb.Domain.Repositories;
 using MyFinanceWeb.Infra.Data.Context;
@@ -22,6 +23,7 @@ public static class DependencyInjection
         services.AddScoped<ITransacaoRepository, TransacaoRepository>();
         services.AddScoped<ITransacaoService, TransacaoService>();
         services.AddScoped<IPlanoContaService, PlanoContaService>();
+        services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 
         return services;
     }

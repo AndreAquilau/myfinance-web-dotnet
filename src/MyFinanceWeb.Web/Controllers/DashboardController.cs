@@ -1,47 +1,29 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MyFinanceWeb.Application.Interfaces;
 
 namespace MyFinanceWeb.Web.Controllers;
-
-[Route("PlanoConta")]
-public class PlanoContaController : Controller
+public class DashboardController : Controller
 {
-    private readonly IPlanoContaService _planoContaService;
-    public PlanoContaController(IPlanoContaService planoContaService)
+    // GET: DashboardController
+    public ActionResult Index()
     {
-        _planoContaService = planoContaService;
+        return View();
     }
 
-    // GET: PlanoContaController
-    [HttpGet()]
-    public async Task<ActionResult> Index()
+    // GET: DashboardController/Details/5
+    public ActionResult Details(int id)
     {
-        //return View();
-        var planoContas = await _planoContaService.FindAll();
-
-        //return Ok(planoContas);
-        return View(planoContas);
+        return View();
     }
 
-    // GET: PlanoContaController/Details/5
-    [HttpGet("Details/{id}")]
-    public async Task<ActionResult> Details(int id)
-    {
-        var planoConta = await _planoContaService.FindById(id);
-        //return View();
-
-        return Ok(planoConta);
-    }
-
-    // GET: PlanoContaController/Create
+    // GET: DashboardController/Create
     public ActionResult Create()
     {
         return View();
     }
 
-    // POST: PlanoContaController/Create
-    [HttpPost()]
+    // POST: DashboardController/Create
+    [HttpPost]
     [ValidateAntiForgeryToken]
     public ActionResult Create(IFormCollection collection)
     {
@@ -55,14 +37,13 @@ public class PlanoContaController : Controller
         }
     }
 
-    // GET: PlanoContaController/Edit/5
-    [HttpPut(("Edit/{id}"))]
+    // GET: DashboardController/Edit/5
     public ActionResult Edit(int id)
     {
         return View();
     }
 
-    // POST: PlanoContaController/Edit/5
+    // POST: DashboardController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
     public ActionResult Edit(int id, IFormCollection collection)
@@ -77,13 +58,13 @@ public class PlanoContaController : Controller
         }
     }
 
-    // GET: PlanoContaController/Delete/5
+    // GET: DashboardController/Delete/5
     public ActionResult Delete(int id)
     {
         return View();
     }
 
-    // POST: PlanoContaController/Delete/5
+    // POST: DashboardController/Delete/5
     [HttpPost]
     [ValidateAntiForgeryToken]
     public ActionResult Delete(int id, IFormCollection collection)
@@ -98,4 +79,3 @@ public class PlanoContaController : Controller
         }
     }
 }
-
