@@ -10,7 +10,7 @@ todas as Transações realizadas.
 - Servidor com Docker instalado.
 - Servidor com Docker Compose instalado.
 
-2. Instalação e Configuração:
+2. Manual starting release:
 
 - Passo 1: Clone o repositório do projeto MyFinance.
 - Passo 2: Acesse a pasta "src" do projeto no servidor.
