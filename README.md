@@ -5,7 +5,7 @@ todas as Transações realizadas.
 
 ## Iniciando Release do Projeto MyFinance (Deploy)
 
-![Fluxo MyFinace](./diagrama/Infra.svg)
+![Infra](./diagrama/Infra.svg)
 
 1. Requisitos de Sistema:
 
