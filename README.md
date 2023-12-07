@@ -11,17 +11,16 @@ todas as Transações realizadas.
 - Servidor com Docker Compose instalado.
 
 2. Instalação e Configuração:
-   Passo 1: Clone o repositório do projeto MyFinance.
-   Passo 2: Acesse a pasta "src" do projeto no servidor.
-   Passo 3: Execute o comando:
+
+- Passo 1: Clone o repositório do projeto MyFinance.
+- Passo 2: Acesse a pasta "src" do projeto no servidor.
+- Passo 3: Execute o comando:
 
 ```bash
  docker compose -p myfinance up -d --build
 ```
 
-para iniciar a aplicação em modo Release Publish.
-
-Passo 4: Acesse a aplicação no navegador através do endereço fornecido pelo Docker Compose.
+- Passo 4: Acesse a aplicação no navegador através do endereço fornecido pelo Docker Compose.
 
 Acesso Padrão: http://localhost:5000.
 
