@@ -3,21 +3,44 @@
 Esta aplicação deve permitir que o usuário monte uma espécie de Plano de Contas para categorizar
 todas as Transações realizadas.
 
-## Start Project Docker Compose
+## Start Release do Projeto MyFinance
 
-Starting Application used Docker Compose
+1. Requisitos de Sistema:
+
+- Servidor com Docker instalado.
+- Servidor com Docker Compose instalado.
+
+2. Instalação e Configuração:
+   Passo 1: Clone o repositório do projeto MyFinance.
+   Passo 2: Acesse a pasta "src" do projeto no servidor.
+   Passo 3: Execute o comando:
 
 ```bash
  docker compose -p myfinance up -d --build
 ```
 
-## Start Project for Development
+para iniciar a aplicação em modo Release Publish.
 
-Starting Application in mode Development
+Passo 4: Acesse a aplicação no navegador através do endereço fornecido pelo Docker Compose.
+
+Acesso Padrão: http://localhost:5000.
+
+## Modo de Desenvolvimento
+
+Antes de iniciar o desenvolvimento das novas features, é necessário configurar o ambiente de desenvolvimento.
+
+Para iniciar o projeto em modo de desenvolvimento, siga os passos abaixo:
+
+- Acesse a pasta src no terminal.
+- Execute o seguinte comando:
 
 ```bash
 dotnet watch run --project ./MyFinanceWeb.Web/ --environment Development
 ```
+
+Certifique-se de que a connection string esteja apontando para a instância local de desenvolvimento do banco de dados MyFinance. Verifique também se todas as dependências do projeto estão instaladas corretamente.
+
+- O projeto será iniciado e estará disponível em http://localhost:5000.
 
 ## Arquitetura Modular
 
