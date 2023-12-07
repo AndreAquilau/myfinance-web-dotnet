@@ -5,7 +5,6 @@ todas as Transações realizadas.
 
 ## Start Project Docker Compose
 
-Starting Application
 Starting Application used Docker Compose
 
 ```bash
