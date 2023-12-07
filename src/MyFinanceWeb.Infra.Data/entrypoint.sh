@@ -4,4 +4,4 @@
 /usr/config/configure-db.sh &
 
 # Start SQL Server
-/opt/mssql/bin/sqlserver
+/opt/mssql/bin/sqlservr
