@@ -10,7 +10,7 @@ services:
       - myfinance-database
     environment:
       - PORT=5000
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - 5000:5000
     networks:
@@ -33,6 +33,8 @@ services:
       - ./MyFinanceWeb.Infra.Data/Database/secrets:/var/opt/mssql/secrets
     networks:
       - myfinance-networks
+    ports:
+      - 1435:1433
 
 networks:
   myfinance-networks:
