@@ -3,7 +3,7 @@
 Esta aplicação deve permitir que o usuário monte uma espécie de Plano de Contas para categorizar
 todas as Transações realizadas.
 
-## Start Release do Projeto MyFinance
+## Iniciando Release do Projeto MyFinance (Deploy)
 
 1. Requisitos de Sistema:
 
@@ -21,8 +21,7 @@ todas as Transações realizadas.
 ```
 
 - Passo 4: Acesse a aplicação no navegador através do endereço fornecido pelo Docker Compose.
-
-Acesso Padrão: http://localhost:5000.
+- Acesso Padrão: http://localhost:5000.
 
 ## Modo de Desenvolvimento
 
