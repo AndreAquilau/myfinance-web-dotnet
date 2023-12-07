@@ -39,7 +39,7 @@ while [[ $DBEXISTS == "" ]] && [[ $i -lt 60 ]] && [[ $ERRCODE_EXIST -eq 0 ]]; do
 	else
 		/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $MSSQL_SA_PASSWORD -d master -i CREATE_DATA_BASE.sql
 	fi
-	
+
 	sleep 1
 
 done
