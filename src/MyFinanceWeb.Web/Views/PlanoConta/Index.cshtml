@@ -12,7 +12,7 @@
     <div class="col-md-12">
         <div>
             <div class="d-flex justify-content-end">
-                <a asp-action="Create" class="btn btn-primary">
+                <a class="btn btn-primary" asp-controller="PlanoConta" asp-action="Create">
                     <span title="Novo Registro" class="fas fa-plus"></span> Novo Registro
                 </a>
             </div>
@@ -25,7 +25,13 @@
         <thead>
             <tr>
                 <th>
+                    Id
+                </th>
+                <th>
                     Descrição
+                </th>
+                <th>
+                    Tipo
                 </th>
                 <th></th>
             </tr>
@@ -35,18 +41,24 @@
             {
                 <tr>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.Descricao)
                     </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo)
+                    </td>
                     <td class="d-flex justify-content-end gap-3">
-                        <a asp-action="Edit" asp-route-id="@item.Id" title="Edit" class="btn btn-warning">
+                        <a asp-controller="PlanoConta" asp-action="Edit" asp-route-id="@item.Id" title="Edit" class="btn btn-warning">
                             <span class="fas fa-edit">Edit</span>
                         </a>
 
-                        <a asp-action="Details" asp-route-id="@item.Id" title="Details" class="btn btn-primary">
+                        <a asp-controller="PlanoConta" asp-action="Details" asp-route-id="@item.Id" title="Details" class="btn btn-primary">
                             <span class="fas fa-search">Details</span>
                         </a>
 
-                        <a asp-action="Delete" asp-route-id="@item.Id" title="Delete" class="btn btn-danger">
+                        <a asp-controller="PlanoConta" asp-action="Delete" asp-route-id="@item.Id" title="Delete" class="btn btn-danger">
                             <span class="fas fa-trash-alt">Delete</span>
                         </a>
                     </td>

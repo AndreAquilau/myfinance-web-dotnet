@@ -3,11 +3,6 @@ using MyFinanceWeb.Application.DTOs.PlanoContaDTOs;
 using MyFinanceWeb.Application.Interfaces;
 using MyFinanceWeb.Domain.Entities;
 using MyFinanceWeb.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyFinanceWeb.Application.Services;
 
@@ -22,9 +17,9 @@ public class PlanoContaService : IPlanoContaService
         _planoContaRepository = planoContaRepository ?? throw new ArgumentNullException(nameof(planoContaRepository));
     }
 
-    public async Task<PlanoContaDTO> Create(PlanoContaDTO planoContaCreateDTO)
+    public async Task<PlanoContaDTO> Create(PlanoContaDTO planoContaDTO)
     {
-        PlanoConta planoConta = _mapper.Map<PlanoConta>(planoContaCreateDTO);
+        PlanoConta planoConta = _mapper.Map<PlanoConta>(planoContaDTO);
 
         var planoContaCreated = await _planoContaRepository.Create(planoConta);
 
@@ -45,7 +40,7 @@ public class PlanoContaService : IPlanoContaService
     public async Task<IEnumerable<PlanoContaDTO>> FindAll()
     {
 
-        IEnumerable<PlanoConta> planoContas= await _planoContaRepository.FindAll();
+        IEnumerable<PlanoConta> planoContas = await _planoContaRepository.FindAll();
 
         IEnumerable<PlanoContaDTO> planoContasRead = _mapper.Map<IEnumerable<PlanoContaDTO>>(planoContas);
 
@@ -62,9 +57,11 @@ public class PlanoContaService : IPlanoContaService
         return planoContaRead;
     }
 
-    public async Task<PlanoContaDTO> Update(PlanoContaDTO planoContaUpdateDTO)
+    public async Task<PlanoContaDTO> Update(PlanoContaDTO planoContaDTO)
     {
-        PlanoConta planoConta = _mapper.Map<PlanoConta>(planoContaUpdateDTO);
+        PlanoConta planoConta = await _planoContaRepository.FindById(planoContaDTO.Id);
+
+        planoConta = _mapper.Map(planoContaDTO, planoConta);
 
         var planoContaUpdated = await _planoContaRepository.Update(planoConta);
 

@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using MyFinanceWeb.Application.DTOs.PlanoContaDTOs;
 using MyFinanceWeb.Application.Interfaces;
 
 namespace MyFinanceWeb.Web.Controllers;
@@ -8,19 +8,19 @@ namespace MyFinanceWeb.Web.Controllers;
 public class PlanoContaController : Controller
 {
     private readonly IPlanoContaService _planoContaService;
-    public PlanoContaController(IPlanoContaService planoContaService)
+    private readonly ILogger<PlanoContaController> _logger;
+    public PlanoContaController(IPlanoContaService planoContaService, ILogger<PlanoContaController> logger)
     {
         _planoContaService = planoContaService;
+        _logger = logger;
     }
 
     // GET: PlanoContaController
     [HttpGet()]
     public async Task<ActionResult> Index()
     {
-        //return View();
         var planoContas = await _planoContaService.FindAll();
 
-        //return Ok(planoContas);
         return View(planoContas);
     }
 
@@ -29,71 +29,137 @@ public class PlanoContaController : Controller
     public async Task<ActionResult> Details(int id)
     {
         var planoConta = await _planoContaService.FindById(id);
-        //return View();
 
-        return Ok(planoConta);
+        if (planoConta == null)
+            return NotFound();
+
+        ViewBag.Tipos = new List<string> { "R", "D" };
+        return View(planoConta);
+    }
+
+    [HttpGet]
+    [Route("Cadastro")]
+    [Route("Cadastro/{id}")]
+    public async Task<ActionResult> Cadastro(int id)
+    {
+        if (id == 0)
+            return View();
+
+        var planoConta = await _planoContaService.FindById(id);
+
+        if (planoConta == null)
+            return NotFound();
+
+        return View(planoConta);
+    }
+
+    [HttpPost]
+    [Route("Cadastro")]
+    [Route("Cadastro/{id?}")]
+    public async Task<ActionResult> Cadastro(PlanoContaDTO planoContaDTO)
+    {
+
+        if (planoContaDTO.Id == 0)
+            await _planoContaService.Create(planoContaDTO);
+        else
+            await _planoContaService.Update(planoContaDTO);
+
+        return RedirectToAction(nameof(Index));
     }
 
     // GET: PlanoContaController/Create
+    [HttpGet("Create")]
     public ActionResult Create()
     {
+        ViewBag.Tipos = new List<string> { "R", "D" };
         return View();
     }
 
     // POST: PlanoContaController/Create
-    [HttpPost()]
+    [HttpPost("Create")]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(IFormCollection collection)
+    public async Task<ActionResult> Create([Bind("Tipo,Descricao")] PlanoContaDTO planoContaDTO)
     {
         try
         {
+            if (!ModelState.IsValid)
+                return View();
+
+            await _planoContaService.Create(planoContaDTO);
+
             return RedirectToAction(nameof(Index));
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.LogError(ex, "Erro ao criar plano de conta", ex);
             return View();
         }
     }
 
-    // GET: PlanoContaController/Edit/5
-    [HttpPut(("Edit/{id}"))]
-    public ActionResult Edit(int id)
+    // GET: PlanoContaController/Edit/5 
+    [HttpGet("Edit/{id}")]
+    public async Task<ActionResult> Edit(int id)
     {
-        return View();
+        var planoConta = await _planoContaService.FindById(id);
+
+        if (planoConta == null)
+            return NotFound();
+
+        return View(planoConta);
     }
 
     // POST: PlanoContaController/Edit/5
-    [HttpPost]
+    [HttpPost("Edit/{id}")]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
+    public async Task<ActionResult> Edit(int id, [Bind("Id,Tipo,Descricao")] PlanoContaDTO planoContaDTO)
     {
         try
         {
+            if (!ModelState.IsValid)
+                return View();
+
+            await _planoContaService.Update(planoContaDTO);
+
             return RedirectToAction(nameof(Index));
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.LogError("Erro ao editar Plano de Conta", ex);
             return View();
         }
     }
 
     // GET: PlanoContaController/Delete/5
-    public ActionResult Delete(int id)
+    [HttpGet("Delete/{id}")]
+    public async Task<ActionResult> Delete(int id)
     {
-        return View();
+        var planoConta = await _planoContaService.FindById(id);
+
+        if (planoConta == null)
+            return NotFound();
+
+        return View(planoConta);
     }
 
     // POST: PlanoContaController/Delete/5
-    [HttpPost]
+    [HttpPost("Delete/{id}")]
     [ValidateAntiForgeryToken]
-    public ActionResult Delete(int id, IFormCollection collection)
+    public async Task<ActionResult> Delete(int id, [Bind("Id,Tipo,Descricao")] PlanoContaDTO planoContaDTO)
     {
         try
         {
+            var planoConta = await _planoContaService.FindById(id);
+
+            if (planoConta == null)
+                return NotFound();
+
+            await _planoContaService.Delete(id);
+
             return RedirectToAction(nameof(Index));
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.LogError("Erro ao deletar Plano de Conta", ex);
             return View();
         }
     }
