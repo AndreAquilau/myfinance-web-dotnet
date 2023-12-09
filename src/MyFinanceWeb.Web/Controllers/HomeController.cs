@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Mvc;
+using MyFinanceWeb.Application.Interfaces;
 using MyFinanceWeb.Web.Models;
 
 namespace MyFinanceWeb.Web.Controllers;
@@ -14,7 +16,7 @@ public class HomeController : Controller
     }
 
     public IActionResult Index()
-    {
+    { 
         return View();
     }
 

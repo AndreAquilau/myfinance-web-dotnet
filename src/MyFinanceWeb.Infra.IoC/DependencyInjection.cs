@@ -1,6 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyFinanceWeb.Application.DTOs;
+using MyFinanceWeb.Application.Interfaces;
+using MyFinanceWeb.Application.Services;
+using MyFinanceWeb.Domain.Entities;
 using MyFinanceWeb.Domain.Repositories;
 using MyFinanceWeb.Infra.Data.Context;
 using MyFinanceWeb.Infra.Data.Repositories;
@@ -21,4 +26,13 @@ public static class DependencyInjection
 
         return services;
     }
+
+    // Pode mover para o projeto Application
+    public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddTransient<IPlanoContaService, PlanoContaService>();
+
+        return services;
+    } 
+
 }

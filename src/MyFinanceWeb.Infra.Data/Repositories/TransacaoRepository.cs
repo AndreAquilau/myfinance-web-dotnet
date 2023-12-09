@@ -1,33 +1,54 @@
 ﻿using MyFinanceWeb.Domain.Entities;
 using MyFinanceWeb.Domain.Repositories;
 
-namespace MyFinanceWeb.Infra.Data.Repositories
-;
+namespace MyFinanceWeb.Infra.Data.Repositories;
+
 public class TransacaoRepository : ITransacaoRepository
 {
-    public Task<Transacao> Create(Transacao transacao)
+    readonly List<Transacao> _lst = new List<Transacao>();
+
+    public async Task<Transacao> Create(Transacao transacao)
     {
-        throw new NotImplementedException();
+        _lst.Add(transacao);
+        transacao.Id = _lst.Count;
+        await Task.Delay(1);
+        return transacao;
     }
 
-    public Task<Transacao> Delete(int id)
+    public async Task<Transacao> Delete(int id)
     {
-        throw new NotImplementedException();
+        var transacao = _lst.FirstOrDefault(p => p.Id == id);
+        if (transacao != null)
+        {
+            _lst.Remove(transacao);
+        }
+        await Task.Delay(1);
+        return transacao;
     }
 
-    public Task<IEnumerable<Transacao>> FindAll()
+    public async Task<IEnumerable<Transacao>> FindAll()
     {
-        throw new NotImplementedException();
+        await Task.Delay(1);
+        return _lst;
     }
 
-    public Task<Transacao> FindById(int id)
+    public async Task<Transacao> FindById(int id)
     {
-        throw new NotImplementedException();
+        var transacao = _lst.FirstOrDefault(p => p.Id == id);
+        await Task.Delay(1);
+        return transacao;
     }
 
-    public Task<Transacao> Update(Transacao transacao)
+    public async Task<Transacao> Update(Transacao transacao)
     {
-        throw new NotImplementedException();
+        var result = _lst.FirstOrDefault(p => p.Id == transacao.Id);
+        if (result != null)
+        {
+            //result.Descricao = transacao.Descricao;
+            //result.Tipo = transacao.Tipo;
+        }
+        await Task.Delay(1);
+        return result;
     }
 }
 

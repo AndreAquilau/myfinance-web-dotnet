@@ -1,33 +1,55 @@
 ﻿using MyFinanceWeb.Domain.Entities;
-using MyFinanceWeb.Domain.Repositories;
+using MyFinanceWeb.Domain.Repositories; 
 
 namespace MyFinanceWeb.Infra.Data.Repositories;
 
+
 public class PlanoContaRepository : IPlanoContaRepository
 {
-    public Task<PlanoConta> Create(PlanoConta transacao)
+    readonly List<PlanoConta> _lst = new List<PlanoConta>();
+
+    public async Task<PlanoConta> Create(PlanoConta planoConta)
     {
-        throw new NotImplementedException();
+        _lst.Add(planoConta);
+        planoConta.Id = _lst.Count;
+        await Task.Delay(1);
+        return planoConta;
     }
 
-    public Task<PlanoConta> Delete(int id)
+    public async Task<PlanoConta> Delete(int id)
     {
-        throw new NotImplementedException();
+        var planoConta = _lst.FirstOrDefault(p => p.Id == id);
+        if (planoConta != null)
+        {
+            _lst.Remove(planoConta);
+        }
+        await Task.Delay(1);
+        return planoConta;
     }
 
-    public Task<IEnumerable<PlanoConta>> FindAll()
+    public async Task<IEnumerable<PlanoConta>> FindAll()
     {
-        throw new NotImplementedException();
+        await Task.Delay(1);
+        return _lst;
     }
 
-    public Task<PlanoConta> FindById(int id)
+    public async Task<PlanoConta> FindById(int id)
     {
-        throw new NotImplementedException();
+        var planoConta = _lst.FirstOrDefault(p => p.Id == id);
+        await Task.Delay(1);
+        return planoConta;
     }
 
-    public Task<PlanoConta> Update(PlanoConta transacao)
+    public async Task<PlanoConta> Update(PlanoConta planoConta)
     {
-        throw new NotImplementedException();
+        var result = _lst.FirstOrDefault(p => p.Id == planoConta.Id);
+        if (result != null)
+        {
+            result.Descricao = planoConta.Descricao;
+            result.Tipo = planoConta.Tipo;
+        }
+        await Task.Delay(1);
+        return result;
     }
 }
 

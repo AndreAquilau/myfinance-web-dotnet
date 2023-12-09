@@ -1,38 +1,88 @@
 ﻿using MyFinanceWeb.Application.DTOs;
 using MyFinanceWeb.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MyFinanceWeb.Domain.Repositories;
+using AutoMapper;
+using MyFinanceWeb.Domain.Entities;
 
 namespace MyFinanceWeb.Application.Services;
 
 public class PlanoContaService : IPlanoContaService
 {
-    public Task<PlanoContaDTO> Create(PlanoContaDTO transacao)
+    private readonly IPlanoContaRepository _planoContaRepository;
+    private readonly IMapper _mapper;
+    public PlanoContaService(IPlanoContaRepository planoContaRepository, IMapper mapper)
     {
-        throw new NotImplementedException();
+        _planoContaRepository = planoContaRepository;
+        _mapper = mapper;
     }
 
-    public Task<PlanoContaDTO> Delete(int id)
+    public async Task<PlanoContaDTO> Create(PlanoContaDTO transacao)
     {
-        throw new NotImplementedException();
+        // Convert the DTO to the entity using AutoMapper
+        var planoConta = _mapper.Map<PlanoConta>(transacao);
+
+        // Call the repository to create the entity
+        await _planoContaRepository.Create(planoConta);
+
+        // Convert the entity back to DTO using AutoMapper
+        var result = _mapper.Map<PlanoContaDTO>(planoConta);
+
+        return result;
     }
 
-    public Task<IEnumerable<PlanoContaDTO>> FindAll()
+
+    public async Task<PlanoContaDTO> Delete(int id)
     {
-        throw new NotImplementedException();
+        var planoConta = _planoContaRepository.FindById(id);
+        if (planoConta == null)
+        {
+            throw new Exception("Plano de Conta não encontrado");
+        }
+        var result = _mapper.Map<PlanoContaDTO>(planoConta);
+        await _planoContaRepository.Delete(planoConta.Id);
+        return result;
     }
 
-    public Task<PlanoContaDTO> FindById(int id)
+    public async Task<IEnumerable<PlanoContaDTO>> FindAll()
     {
-        throw new NotImplementedException();
+        // Call the repository to get all entities
+        var planoContas = await _planoContaRepository.FindAll();
+
+        // Convert the entities to DTOs using AutoMapper
+        var result = _mapper.Map<IEnumerable<PlanoContaDTO>>(planoContas);
+
+        return result;
     }
 
-    public Task<PlanoContaDTO> Update(PlanoContaDTO transacao)
+    public async Task<PlanoContaDTO> FindById(int id)
     {
-        throw new NotImplementedException();
+        var planoConta = await _planoContaRepository.FindById(id);
+        if (planoConta == null)
+        {
+            throw new Exception("Plano de Conta não encontrado");
+        }
+        var result = _mapper.Map<PlanoContaDTO>(planoConta);
+        return result; 
+    }
+
+    public async Task<PlanoContaDTO> Update(PlanoContaDTO transacao)
+    {
+        var planoConta = await _planoContaRepository.FindById(transacao.Id);
+        if (planoConta == null)
+        {
+            throw new Exception("Plano de Conta não encontrado");
+        }
+
+        // Update the entity with the DTO data using AutoMapper
+        _mapper.Map(transacao, planoConta);
+
+        // Call the repository to update the entity
+        await _planoContaRepository.Update(planoConta);
+
+        // Convert the entity back to DTO using AutoMapper
+        var result = _mapper.Map<PlanoContaDTO>(planoConta);
+
+        return result;
     }
 }
 
