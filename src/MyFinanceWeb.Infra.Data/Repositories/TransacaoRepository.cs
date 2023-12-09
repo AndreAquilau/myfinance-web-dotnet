@@ -4,80 +4,54 @@ using MyFinanceWeb.Domain.Repositories;
 using MyFinanceWeb.Infra.Data.Context;
 using MyFinanceWeb.Infra.Data.Validate;
 
-namespace MyFinanceWeb.Infra.Data.Repositories
-;
+namespace MyFinanceWeb.Infra.Data.Repositories;
+
 public class TransacaoRepository : ITransacaoRepository
 {
-    private MyFinanceDbContext _context;
-
-    public TransacaoRepository(MyFinanceDbContext context)
-    {
-        _context = context;
-    }
+    readonly List<Transacao> _lst = new List<Transacao>();
 
     public async Task<Transacao> Create(Transacao transacao)
     {
-
-        await _context.Transacao.AddAsync(transacao);
-
-        await _context.SaveChangesAsync();
-
+        _lst.Add(transacao);
+        transacao.Id = _lst.Count;
+        await Task.Delay(1);
         return transacao;
-
     }
 
     public async Task<Transacao> Delete(int id)
     {
-        var transacao = await _context.Transacao.FirstOrDefaultAsync(x => x.Id == id);
-
-        //Valida se o plano de conta é is null
-        RepositoryExceptionValitation.When(transacao is null, "Transacao não encontrado!");
-
-        //Plano Contas não é nulo!
-        var dataTransacao = transacao!;
-
-        _context.Transacao.Remove(dataTransacao);
-
-        await _context.SaveChangesAsync();
-
-        return dataTransacao;
+        var transacao = _lst.FirstOrDefault(p => p.Id == id);
+        if (transacao != null)
+        {
+            _lst.Remove(transacao);
+        }
+        await Task.Delay(1);
+        return transacao;
     }
 
     public async Task<IEnumerable<Transacao>> FindAll()
     {
-        var transacoes = await _context.Transacao.ToArrayAsync();
-
-        return transacoes;
+        await Task.Delay(1);
+        return _lst;
     }
 
     public async Task<Transacao> FindById(int id)
     {
-        var transacao = await _context.Transacao.FirstOrDefaultAsync(x => x.Id == id);
-
-        //Valida se o plano de conta é is null
-        RepositoryExceptionValitation.When(transacao is null, "Transacao não encontrado!");
-
-        //Plano Contas não é nulo!
-        var dataTransacao = transacao!;
-
-        return dataTransacao;
+        var transacao = _lst.FirstOrDefault(p => p.Id == id);
+        await Task.Delay(1);
+        return transacao;
     }
 
     public async Task<Transacao> Update(Transacao transacao)
     {
-        var transacaoContaUpdate = await _context.Transacao.FirstOrDefaultAsync(x => x.Id == transacao.Id);
-
-        //Valida se o plano de conta é is null
-        RepositoryExceptionValitation.When(transacaoContaUpdate is null, "Transacao não encontrado!");
-
-        //Plano Contas não é nulo!
-        var dataTransacao = transacao!;
-
-        _context.Update(dataTransacao);
-
-        await _context.SaveChangesAsync();
-
-        return dataTransacao;
+        var result = _lst.FirstOrDefault(p => p.Id == transacao.Id);
+        if (result != null)
+        {
+            //result.Descricao = transacao.Descricao;
+            //result.Tipo = transacao.Tipo;
+        }
+        await Task.Delay(1);
+        return result;
     }
 }
 

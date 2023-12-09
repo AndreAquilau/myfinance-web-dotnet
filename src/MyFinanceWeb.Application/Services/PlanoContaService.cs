@@ -1,76 +1,89 @@
 ﻿using AutoMapper;
 using MyFinanceWeb.Application.DTOs.PlanoContaDTOs;
 using MyFinanceWeb.Application.Interfaces;
-using MyFinanceWeb.Domain.Entities;
 using MyFinanceWeb.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AutoMapper;
+using MyFinanceWeb.Domain.Entities;
 
 namespace MyFinanceWeb.Application.Services;
 
 public class PlanoContaService : IPlanoContaService
 {
-    private readonly IMapper _mapper;
     private readonly IPlanoContaRepository _planoContaRepository;
-
+    private readonly IMapper _mapper;
     public PlanoContaService(IPlanoContaRepository planoContaRepository, IMapper mapper)
     {
+        _planoContaRepository = planoContaRepository;
         _mapper = mapper;
-        _planoContaRepository = planoContaRepository ?? throw new ArgumentNullException(nameof(planoContaRepository));
     }
 
-    public async Task<PlanoContaDTO> Create(PlanoContaDTO planoContaCreateDTO)
+    public async Task<PlanoContaDTO> Create(PlanoContaDTO transacao)
     {
-        PlanoConta planoConta = _mapper.Map<PlanoConta>(planoContaCreateDTO);
+        // Convert the DTO to the entity using AutoMapper
+        var planoConta = _mapper.Map<PlanoConta>(transacao);
 
-        var planoContaCreated = await _planoContaRepository.Create(planoConta);
+        // Call the repository to create the entity
+        await _planoContaRepository.Create(planoConta);
 
-        PlanoContaDTO planoContaRead = _mapper.Map<PlanoContaDTO>(planoContaCreated);
+        // Convert the entity back to DTO using AutoMapper
+        var result = _mapper.Map<PlanoContaDTO>(planoConta);
 
-        return planoContaRead;
+        return result;
     }
+
 
     public async Task<PlanoContaDTO> Delete(int id)
     {
-        var planoContaDeleted = await _planoContaRepository.Delete(id);
-
-        PlanoContaDTO planoContaRead = _mapper.Map<PlanoContaDTO>(planoContaDeleted);
-
-        return planoContaRead;
+        var planoConta = _planoContaRepository.FindById(id);
+        if (planoConta == null)
+        {
+            throw new Exception("Plano de Conta não encontrado");
+        }
+        var result = _mapper.Map<PlanoContaDTO>(planoConta);
+        await _planoContaRepository.Delete(planoConta.Id);
+        return result;
     }
 
     public async Task<IEnumerable<PlanoContaDTO>> FindAll()
     {
+        // Call the repository to get all entities
+        var planoContas = await _planoContaRepository.FindAll();
 
-        IEnumerable<PlanoConta> planoContas= await _planoContaRepository.FindAll();
+        // Convert the entities to DTOs using AutoMapper
+        var result = _mapper.Map<IEnumerable<PlanoContaDTO>>(planoContas);
 
-        IEnumerable<PlanoContaDTO> planoContasRead = _mapper.Map<IEnumerable<PlanoContaDTO>>(planoContas);
-
-        return planoContasRead;
+        return result;
     }
 
     public async Task<PlanoContaDTO> FindById(int id)
     {
-
         var planoConta = await _planoContaRepository.FindById(id);
-
-        PlanoContaDTO planoContaRead = _mapper.Map<PlanoContaDTO>(planoConta);
-
-        return planoContaRead;
+        if (planoConta == null)
+        {
+            throw new Exception("Plano de Conta não encontrado");
+        }
+        var result = _mapper.Map<PlanoContaDTO>(planoConta);
+        return result;
     }
 
-    public async Task<PlanoContaDTO> Update(PlanoContaDTO planoContaUpdateDTO)
+    public async Task<PlanoContaDTO> Update(PlanoContaDTO transacao)
     {
-        PlanoConta planoConta = _mapper.Map<PlanoConta>(planoContaUpdateDTO);
+        var planoConta = await _planoContaRepository.FindById(transacao.Id);
+        if (planoConta == null)
+        {
+            throw new Exception("Plano de Conta não encontrado");
+        }
 
-        var planoContaUpdated = await _planoContaRepository.Update(planoConta);
+        // Update the entity with the DTO data using AutoMapper
+        _mapper.Map(transacao, planoConta);
 
-        PlanoContaDTO planoContaRead = _mapper.Map<PlanoContaDTO>(planoContaUpdated);
+        // Call the repository to update the entity
+        await _planoContaRepository.Update(planoConta);
 
-        return planoContaRead;
+        // Convert the entity back to DTO using AutoMapper
+        var result = _mapper.Map<PlanoContaDTO>(planoConta);
+
+        return result;
     }
 }
 
