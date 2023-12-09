@@ -19,7 +19,7 @@ todas as Transações realizadas.
 - Passo 3: Execute o comando:
 
 ```bash
- docker compose -p myfinance up -d --build
+ docker compose -p myfinance up -d --build --force-recreate
 ```
 
 - Passo 4: Acesse a aplicação no navegador através do endereço fornecido pelo Docker Compose.
