@@ -10,6 +10,11 @@
 		<ProjectReference Include="..\MyFinanceWeb.Infra.IoC\MyFinanceWeb.Infra.IoC.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\MyFinanceWeb.Application\MyFinanceWeb.Application.csproj" />
+		<ProjectReference Include="..\MyFinanceWeb.Infra.IoC\MyFinanceWeb.Infra.IoC.csproj" />
+	</ItemGroup>
+
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>

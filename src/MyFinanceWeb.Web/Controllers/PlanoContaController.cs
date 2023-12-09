@@ -51,6 +51,11 @@ public class PlanoContaController : Controller
             }
             catch
             {
+                var pc = _planoContaService.FindAll();
+                pc.Wait();
+
+                var planoContas = pc.Result;
+
                 return View();
             }
         }

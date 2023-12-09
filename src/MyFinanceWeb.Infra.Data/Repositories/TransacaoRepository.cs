@@ -6,6 +6,8 @@ using MyFinanceWeb.Infra.Data.Validate;
 
 namespace MyFinanceWeb.Infra.Data.Repositories;
 
+namespace MyFinanceWeb.Infra.Data.Repositories;
+
 public class TransacaoRepository : ITransacaoRepository
 {
     readonly List<Transacao> _lst = new List<Transacao>();
