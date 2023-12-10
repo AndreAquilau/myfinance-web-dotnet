@@ -1,12 +1,139 @@
 ﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     ViewData["Title"] = "Dashboard";
 }
 
-<div>
+<div class="row">
     <h2>
         @ViewData["Title"]
     </h2>
+    <div class="row justify-content-between align-items-baseline">
+        <div class="row col-md-6">
+            <div class="form-group col-md-6 mb-2">
+                <label for="inputDataInicial" class="sr-only">Data Inicial</label>
+                <input type="date" class="form-control" id="DataInicial" placeholder="Data Inicial">
+            </div>
+            <div class="form-group col-md-6 mb-2">
+                <label for="inputDataFinal" class="sr-only">Data Final</label>
+                <input type="date" class="form-control" id="DataFinal" placeholder="Data Final">
+            </div>
+        </div>
+        <div class="row col-md-4">
+            <label></label>
+            <button class="btn btn-primary" onclick="loadingData()">
+                <span title="Novo Registro" class="fas fa-plus"></span> Consultar
+            </button>
+        </div>
+    </div>
+    <span class="border-bottom mt-2  mb-2"></span>
+    <div class="col-md-8">
+        <canvas id="chart"></canvas>
+    </div>
+    <div class="col-md-4">
+        <canvas id="chart-pie"></canvas>
+    </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script type="text/javascript">
+    const ctx = document.getElementById('chart');
+    const ctxPie = document.getElementById('chart-pie');
+
+    const dataPie = {
+        labels: [
+            'Receitas',
+            'Despesas',
+        ],
+        datasets: [{
+            label: 'Movimentações',
+            data: [0.00, 0.00],
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+            ],
+            borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+            ],
+            hoverOffset: 4
+        }]
+    };
+
+    let pie = new Chart(ctxPie, {
+        type: 'pie',
+        data: dataPie,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+            },
+        },
+    });
+
+    const data = {
+        labels: [
+            'Receitas',
+            'Despesas',
+        ],
+        datasets: [{
+            label: 'Movimento Contábil',
+            data: [0.00, 0.00],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+            ],
+            borderColor: [
+                'rgb(255,0,0)',
+                'rgb(50,205,50)',
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    let bar = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Movimento Contábil'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    function loadingData(receita = 0.00, despesa = 0.00) {
+        fetch("/MovimentacaoContabil")
+            .then(response => response.json())
+            .then(body => {
+                console.log(body);
+                let receita = parseFloat(body.receita);
+                let despesa = parseFloat(body.despesa);
+
+                pie.data.datasets[0].data = [receita, despesa];
+                bar.data.datasets[0].data = [receita, despesa];
+                pie.update();
+                bar.update();
+
+            })
+            .catch(error => console.error('Error', error));
+
+    }
+
+</script>

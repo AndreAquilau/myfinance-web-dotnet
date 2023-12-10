@@ -21,6 +21,8 @@ public static class DependencyInjection
         );
         services.AddScoped<IPlanoContaRepository, PlanoContaRepository>();
         services.AddScoped<ITransacaoRepository, TransacaoRepository>();
+        services.AddScoped<IUtilRepository, UtilRepository>();
+        services.AddScoped<IUtilService, UtilService>();
         services.AddScoped<ITransacaoService, TransacaoService>();
         services.AddScoped<IPlanoContaService, PlanoContaService>();
         services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
