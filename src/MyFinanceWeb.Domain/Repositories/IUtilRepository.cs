@@ -10,6 +10,6 @@ namespace MyFinanceWeb.Domain.Repositories;
 
 public interface IUtilRepository
 {
-    DespesaReceita DespesaReceita(DateOnly dataInit, DateOnly dataEnd);
+    Task<DespesaReceita> DespesaReceita(DateOnly dataInit, DateOnly dataEnd);
 }
 

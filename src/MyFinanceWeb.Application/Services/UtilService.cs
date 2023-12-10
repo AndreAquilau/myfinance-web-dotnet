@@ -23,9 +23,9 @@ public class UtilService : IUtilService
         _utilRepository = utilRepository ?? throw new ArgumentNullException(nameof(utilRepository));
     }
 
-    public DespesaReceitaDTO DespesaReceita(DateOnly dataInit, DateOnly dataEnd)
+    public async Task<DespesaReceitaDTO> DespesaReceita(DateOnly dataInit, DateOnly dataEnd)
     {
-        var dispesaReceita = _utilRepository.DespesaReceita(dataInit, dataEnd);
+        var dispesaReceita = await _utilRepository.DespesaReceita(dataInit, dataEnd);
         var dispesaReceitaDto = _mapper.Map<DespesaReceitaDTO>(dispesaReceita);
         return dispesaReceitaDto;
     }

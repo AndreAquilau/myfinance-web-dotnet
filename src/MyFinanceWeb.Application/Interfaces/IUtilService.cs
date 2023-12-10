@@ -11,6 +11,6 @@ namespace MyFinanceWeb.Application.Interfaces;
 
 public interface IUtilService
 {
-    DespesaReceitaDTO DespesaReceita(DateOnly dataInit, DateOnly dataEnd);
+    Task<DespesaReceitaDTO> DespesaReceita(DateOnly dataInit, DateOnly dataEnd);
 }
 

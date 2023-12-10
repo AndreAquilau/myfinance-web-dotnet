@@ -19,13 +19,12 @@ public class DashboardController : Controller
     }
 
     // GET: DashboardController
-    [HttpGet("MovimentacaoContabil")]
-    public object MovimentacaoContabil()
+    [HttpGet("MovimentacaoContabil/{dataInicial}/{dataFinal}")]
+    public async Task<object> MovimentacaoContabil(string dataInicial, string dataFinal)
     {
-        var despesaReceita = _utilService.DespesaReceita(DateOnly.Parse("2022-01-01"), DateOnly.Parse("2023-12-31"));
-
-        Console.WriteLine(despesaReceita.Receita);
-        Console.WriteLine(despesaReceita.Despesa);
+        DateOnly.TryParse(dataInicial, out var dataInicialOut);
+        DateOnly.TryParse(dataFinal, out var dataFinalOut);
+        var despesaReceita = await _utilService.DespesaReceita(dataInicialOut, dataFinalOut);
 
         return despesaReceita;
     }

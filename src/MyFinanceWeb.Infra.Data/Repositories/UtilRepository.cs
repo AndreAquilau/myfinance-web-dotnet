@@ -8,6 +8,7 @@ using MyFinanceWeb.Infra.Data.Validate;
 using System;
 using System.Text.Json;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MyFinanceWeb.Infra.Data.Repositories
 ;
@@ -20,41 +21,32 @@ public class UtilRepository : IUtilRepository
         _context = context;
     }
 
-    public DespesaReceita DespesaReceita(DateOnly dataInit, DateOnly dataEnd)
+    public async Task<DespesaReceita> DespesaReceita(DateOnly dataInit, DateOnly dataEnd)
     {
+        var pDataInit = new SqlParameter("pDataInit", dataInit.ToString("yyyy-MM-dd"));
+        var pDataEnd = new SqlParameter("pDataEnd", dataEnd.ToString("yyyy-MM-dd"));
+        var despesaReceita = await _context.Set<DespesaReceita>().FromSqlRaw($@"
+            SELECT 
+                ISNULL(SUM(IIF(P.Tipo = 'D', Valor, 0.00)), 0.00) AS Despesa, 
+                ISNULL(SUM(IIF(P.Tipo = 'R', Valor, 0.00)), 0.00) AS Receita 
+            FROM Transacao T
+            INNER JOIN PlanoConta P ON T.PlanoContaId = P.Id
+            WHERE T.Data BETWEEN @pDataInit AND @pDataEnd;
+            ", new object[] { pDataInit, pDataEnd })
+            .ToListAsync();
 
+        var data = despesaReceita.FirstOrDefault();
 
-            var despesa = _context.Transacao
-                .Join(_context.PlanoConta,
-                    transacao => transacao.PlanoContaId,
-                    planoConta => planoConta.Id,
-                    (transacao, planoConta) => new { Transacao = transacao, PlanoConta = planoConta })
-                .Where(x => x.Transacao.Data >= new DateTime(2022, 01, 01) && x.Transacao.Data <= new DateTime(2023, 12, 31) && x.PlanoConta.Tipo == 'D')
-                .Sum(x => x.Transacao.Valor);
+        if (data is null)
+        {
+            return new DespesaReceita() { Despesa = 0.00M, Receita = 0.00M };
 
-            var receita = _context.Transacao
-                .Join(_context.PlanoConta,
-                    transacao => transacao.PlanoContaId,
-                    planoConta => planoConta.Id,
-                    (transacao, planoConta) => new { Transacao = transacao, PlanoConta = planoConta })
-                .Where(x => x.Transacao.Data >= new DateTime(2022, 01, 01) && x.Transacao.Data <= new DateTime(2023, 12, 31) && x.PlanoConta.Tipo == 'R')
-                .Sum(x => x.Transacao.Valor);
-        Console.WriteLine(receita);
-        Console.WriteLine(despesa);
-
-        return new DespesaReceita() { Despesa = despesa, Receita = receita };
+        }
+        else
+        {
+            return data;
+        }
 
     }
 
-}
-
-
-
-
-
-
-public class QueryResult
-{
-    public decimal Dispesa { get; set; }
-    public decimal Receita { get; set; }
 }

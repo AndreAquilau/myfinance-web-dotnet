@@ -42,6 +42,12 @@ For more information on enabling MVC for empty projects, visit https://go.micros
 <script type="text/javascript">
     const ctx = document.getElementById('chart');
     const ctxPie = document.getElementById('chart-pie');
+    const dataInicial = document.getElementById('DataInicial');
+    const dataFinal = document.getElementById('DataFinal');
+
+    //Value Default
+    dataInicial.value = new Date().toISOString().slice(0, 10);
+    dataFinal.value = new Date().toISOString().slice(0, 10);
 
     const dataPie = {
         labels: [
@@ -118,16 +124,22 @@ For more information on enabling MVC for empty projects, visit https://go.micros
         }
     });
 
+    //Atualizar gráficos
+
+
+
     function loadingData(receita = 0.00, despesa = 0.00) {
-        fetch("/MovimentacaoContabil")
+
+        fetch(`/MovimentacaoContabil/${dataInicial.value}/${dataFinal.value}`)
             .then(response => response.json())
             .then(body => {
-                console.log(body);
+
                 let receita = parseFloat(body.receita);
                 let despesa = parseFloat(body.despesa);
 
                 pie.data.datasets[0].data = [receita, despesa];
                 bar.data.datasets[0].data = [receita, despesa];
+                
                 pie.update();
                 bar.update();
 
