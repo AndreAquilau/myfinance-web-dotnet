@@ -26,9 +26,12 @@ public record TransacaoDTO
     [Required(ErrorMessage = "Campo Data é obrigatório.")]
     [DisplayName("Data")]
     public DateTime Data { get; set; }
-
+    
+    [DisplayName("PlanoContaId")]
     public int PlanoContaId { get; set; }
 
     public required PlanoContaDTO PlanoConta { get; set; }
+
+    public required IEnumerable<PlanoContaDTO> ListPlanoConta { get; set; }
 }
 

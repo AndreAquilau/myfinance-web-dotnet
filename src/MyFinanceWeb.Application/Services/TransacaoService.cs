@@ -23,7 +23,7 @@ public class TransacaoService : ITransacaoService
     public async Task<TransacaoDTO> Create(TransacaoDTO transacaoCreateDTO)
     {
         var transacao = _mapper.Map<Transacao>(transacaoCreateDTO);
-        transacao.PlanoContaId = 1; // Mock ajuste para a FK
+        //transacao.PlanoContaId = 1; // Mock ajuste para a FK
 
         var transacaoCreated = await _transacaoRepository.Create(transacao);
         var transacaoReadDto = _mapper.Map<TransacaoDTO>(transacaoCreated);

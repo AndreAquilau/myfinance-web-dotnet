@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyFinanceWeb.Application.DTOs.PlanoContaDTOs;
 using MyFinanceWeb.Application.DTOs.TransacaoDTOs;
 using MyFinanceWeb.Application.Interfaces;
 
@@ -7,10 +8,13 @@ namespace MyFinanceWeb.Web.Controllers;
 [Route("Transacao")]
 public class TransacaoController : Controller
 {
+    private readonly IPlanoContaService _planoContaService;
     private readonly ITransacaoService _transacaoService;
-    public TransacaoController(ITransacaoService transacaoService)
+
+    public TransacaoController(ITransacaoService transacaoService, IPlanoContaService planoContaService)
     {
         _transacaoService = transacaoService;
+        _planoContaService = planoContaService;
     }
 
     // GET: TransacaoController
@@ -35,16 +39,18 @@ public class TransacaoController : Controller
     [HttpPost]
     [Route("/Create")]
     //[ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Historico, Valor, Data")] TransacaoDTO transacaoDTO)
+    public async Task<IActionResult> Create([Bind("PlanoContaId, Historico, Valor, Data")] TransacaoDTO transacaoDTO)
     {
         try
         {
             // Verifica se o modelo está de acordo com TransacaoDTO
             if (string.IsNullOrWhiteSpace(transacaoDTO.Historico) || transacaoDTO.Valor <= 0 || transacaoDTO.Data == default)
             {
-                // Se não estiver de acordo, retorne para a view de criação com uma mensagem de erro
-                ModelState.AddModelError(string.Empty, "Os campos Histórico, Valor e Data são obrigatórios.");
-                return View();
+                // Busca lista de Plano de Contas
+                IEnumerable<PlanoContaDTO> listPlanoConta = await _planoContaService.FindAll();
+                transacaoDTO.ListPlanoConta = listPlanoConta;
+
+                return View(transacaoDTO);
             }
             
             // Chama o serviço para criar a transação
