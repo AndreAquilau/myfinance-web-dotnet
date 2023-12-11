@@ -34,22 +34,32 @@ public class TransacaoController : Controller
     // POST: TransacaoController/Create
     [HttpPost]
     [Route("/Create")]
-    [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Create([Bind("Historico", "Valor", "Data")] TransacaoDTO transacaoDTO)
+    //[ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("Historico, Valor, Data")] TransacaoDTO transacaoDTO)
     {
         try
         {
             // Verifica se o modelo está de acordo com TransacaoDTO
-            if (!ModelState.IsValid)
+            if (string.IsNullOrWhiteSpace(transacaoDTO.Historico) || transacaoDTO.Valor <= 0 || transacaoDTO.Data == default)
             {
-                return BadRequest(ModelState);
+                // Se não estiver de acordo, retorne para a view de criação com uma mensagem de erro
+                ModelState.AddModelError(string.Empty, "Os campos Histórico, Valor e Data são obrigatórios.");
+                return View();
             }
-
+            
             // Chama o serviço para criar a transação
             var transacao = await _transacaoService.Create(transacaoDTO);
 
-            // Retorna uma resposta de sucesso com a transação criada
-            return View(transacao);
+            // Verifica se a transação foi criada com sucesso
+            if (transacao != null)
+                return RedirectToAction("Details", new { id = transacao.Id });
+            else
+            {
+                // Se houve um problema ao criar a transação, retorne para a view de criação com uma mensagem de erro
+                ModelState.AddModelError(string.Empty, "Erro ao criar a transação.");
+                return View();
+            }
+        
         }
         catch (Exception ex)
         {
@@ -61,7 +71,7 @@ public class TransacaoController : Controller
     // PUT: TransacaoController/Edit/5
     [HttpPut]
     [Route("/Edit/{id}")]
-    [ValidateAntiForgeryToken]
+    // [ValidateAntiForgeryToken]
     public ActionResult Edit(int id, IFormCollection collection)
     {
         try
@@ -77,7 +87,7 @@ public class TransacaoController : Controller
     // DELETE: TransacaoController/Delete/5
     [HttpDelete]
     [Route("/Delete/{id}")]
-    [ValidateAntiForgeryToken]
+    // [ValidateAntiForgeryToken]
     public ActionResult Delete(int id, IFormCollection collection)
     {
         try
