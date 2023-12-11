@@ -1,0 +1,58 @@
+@model MyFinanceWeb.Application.DTOs.TransacaoDTOs.TransacaoDTO
+
+@{
+    ViewData["Title"] = "Detalhe da Transação: " + Model.Historico;
+}
+
+<div>
+    <h2>@ViewData["Title"]</h2>
+</div>
+
+<form asp-controller="Transacao" >
+    <!-- Botão de voltar -->
+    <div class="d-flex justify-content-end">
+        <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+    </div>
+
+    <br />
+
+    <ul class="list-group">
+        <li class="list-group-item bg-light">
+            <div class="row">
+                <div class="col-md-2"><b>Id:</b></div>
+                <div class="col-md-10">@Model.Id</div>
+            </div>
+        </li>
+
+        <li class="list-group-item bg-light">
+            <div class="row">
+                <div class="col-md-2"><b>Data:</b></div>
+                <div class="col-md-10">@Model.Data</div>
+            </div>
+        </li>
+
+        <li class="list-group-item bg-light">
+            <div class="row">
+                <div class="col-md-2"><b>Histórico:</b></div>
+                <div class="col-md-10">@Model.Historico</div>
+            </div>
+        </li>
+
+        <li class="list-group-item bg-light">
+            <div class="row">
+                <div class="col-md-2"><b>Plano de Conta Id:</b></div>
+                <div class="col-md-10">@Model.PlanoContaId</div>
+            </div>
+        </li>
+
+        <li class="list-group-item bg-light">
+            <div class="row">
+                <div class="col-md-2"> <b>Valor:</b></div>
+                <div class="col-md-10">@Model.Valor</div>
+            </div>
+        </li>
+    </ul
+
+</form>
+
+
