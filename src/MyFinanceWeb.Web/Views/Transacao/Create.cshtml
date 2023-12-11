@@ -36,8 +36,8 @@
 
     <!-- Input id do plano de conta -->
     <div class="form-group">
-        <label for="PlanoContaId">ID Plano de Conta: <span id="PlanoContaId"></span></label>
-        <input type="number" id="PlanoContaId" name="PlanoContaId" class="form-control" />
+        <label for="PlanoContaId">ID Plano de Conta: </label>
+        <input type="number" id="PlanoContaId" name="PlanoContaId" href="PlanoContaId" class="form-control"/>
     </div>
 
     <!-- Input nome da transação -->
@@ -74,5 +74,7 @@
             numberInput.value = selectedId;
             label.textContent = selectedId;
         });
+
+        // TODO: Adicionar validador no input PlanoContaId para não permitir vazio
     });
 </script>

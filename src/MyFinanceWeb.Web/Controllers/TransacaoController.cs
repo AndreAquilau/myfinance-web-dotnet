@@ -39,7 +39,7 @@ public class TransacaoController : Controller
     [HttpPost]
     [Route("/Create")]
     //[ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("PlanoContaId, Historico, Valor, Data")] TransacaoDTO transacaoDTO)
+    public async Task<IActionResult> Create([Bind("Historico, Valor, Data, PlanoContaId")] TransacaoDTO transacaoDTO)
     {
         try
         {
