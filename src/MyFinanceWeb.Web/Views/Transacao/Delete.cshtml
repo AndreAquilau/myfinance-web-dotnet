@@ -1,0 +1,57 @@
+@model MyFinanceWeb.Application.DTOs.TransacaoDTOs.TransacaoDTO
+
+@{
+    ViewData["Title"] = "Excluir Transação: " + Model.Historico;
+}
+
+<div>
+    <h2>@ViewData["Title"]</h2>
+</div>
+
+<form asp-controller="Transacao">
+    <ul class="list-group">
+        <li class="list-group-item bg-light">
+            <div class="row">
+                <div class="col-md-2"><b>Id:</b></div>
+                <div class="col-md-10">@Model.Id</div>
+            </div>
+        </li>
+
+        <li class="list-group-item bg-light">
+            <div class="row">
+                <div class="col-md-2"><b>Data:</b></div>
+                <div class="col-md-10">@Model.Data</div>
+            </div>
+        </li>
+
+        <li class="list-group-item bg-light">
+            <div class="row">
+                <div class="col-md-2"><b>Histórico:</b></div>
+                <div class="col-md-10">@Model.Historico</div>
+            </div>
+        </li>
+
+        <li class="list-group-item bg-light">
+            <div class="row">
+                <div class="col-md-2"><b>Plano de Conta Id:</b></div>
+                <div class="col-md-10">@Model.PlanoContaId</div>
+            </div>
+        </li>
+
+        <li class="list-group-item bg-light">
+            <div class="row">
+                <div class="col-md-2"> <b>Valor:</b></div>
+                <div class="col-md-10">@Model.Valor</div>
+            </div>
+        </li>
+    </ul
+
+    <br />
+
+    <div class="form-group d-flex justify-content-center" style="padding-top: 20px;">
+        <button type="submit" class="btn btn-danger btn-lg">Deletar</button>
+        <a asp-controller="Transacao" asp-action="Index" class="btn btn-secondary btn-lg" style="margin-left: 10px;">Cancelar</a>
+    </div>
+
+
+</form>
