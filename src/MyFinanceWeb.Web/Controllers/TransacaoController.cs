@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using MyFinanceWeb.Application.DTOs.TransacaoDTOs;
 using MyFinanceWeb.Application.Interfaces;
 
 namespace MyFinanceWeb.Web.Controllers;
@@ -14,50 +14,53 @@ public class TransacaoController : Controller
     }
 
     // GET: TransacaoController
-    [HttpGet()]
+    [HttpGet]
     public async Task<ActionResult> Index()
     {
-        //return View();
         var transacoes = await _transacaoService.FindAll();
-
         return View(transacoes);
     }
 
     // GET: TransacaoController/Details/5
-    public ActionResult Details(int id)
+    [HttpGet]
+    [Route("/Details/{id}")]
+    public async Task<ActionResult> Details(int id)
     {
-        return View();
-    }
 
-    // GET: TransacaoController/Create
-    public ActionResult Create()
-    {
-        return View();
+        var transacao = await _transacaoService.FindById(id);
+        return View(transacao);
     }
 
     // POST: TransacaoController/Create
     [HttpPost]
+    [Route("/Create")]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(IFormCollection collection)
+    public async Task<ActionResult> Create([Bind("Historico", "Valor", "Data")] TransacaoDTO transacaoDTO)
     {
         try
         {
-            return RedirectToAction(nameof(Index));
+            // Verifica se o modelo está de acordo com TransacaoDTO
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Chama o serviço para criar a transação
+            var transacao = await _transacaoService.Create(transacaoDTO);
+
+            // Retorna uma resposta de sucesso com a transação criada
+            return View(transacao);
         }
-        catch
+        catch (Exception ex)
         {
-            return View();
+            Console.WriteLine(ex);
+            return StatusCode(500, "Erro interno do servidor");
         }
     }
 
-    // GET: TransacaoController/Edit/5
-    public ActionResult Edit(int id)
-    {
-        return View();
-    }
-
-    // POST: TransacaoController/Edit/5
-    [HttpPost]
+    // PUT: TransacaoController/Edit/5
+    [HttpPut]
+    [Route("/Edit/{id}")]
     [ValidateAntiForgeryToken]
     public ActionResult Edit(int id, IFormCollection collection)
     {
@@ -71,14 +74,9 @@ public class TransacaoController : Controller
         }
     }
 
-    // GET: TransacaoController/Delete/5
-    public ActionResult Delete(int id)
-    {
-        return View();
-    }
-
-    // POST: TransacaoController/Delete/5
-    [HttpPost]
+    // DELETE: TransacaoController/Delete/5
+    [HttpDelete]
+    [Route("/Delete/{id}")]
     [ValidateAntiForgeryToken]
     public ActionResult Delete(int id, IFormCollection collection)
     {
