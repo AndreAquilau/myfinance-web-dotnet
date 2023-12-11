@@ -25,12 +25,11 @@ public class TransacaoController : Controller
         return View(transacoes);
     }
 
-    // GET: TransacaoController/Details/5
+    // GET: TransacaoController/Details/{id}
     [HttpGet]
     [Route("/Details/{id}")]
     public async Task<ActionResult> Details(int id)
     {
-
         var transacao = await _transacaoService.FindById(id);
         return View(transacao);
     }
@@ -74,7 +73,9 @@ public class TransacaoController : Controller
         }
     }
 
-    // PUT: TransacaoController/Edit/5
+    // -------------------------------------------------------------
+    
+    // PUT: TransacaoController/Edit/{id}
     [HttpPut]
     [Route("/Edit/{id}")]
     // [ValidateAntiForgeryToken]
@@ -90,19 +91,43 @@ public class TransacaoController : Controller
         }
     }
 
-    // DELETE: TransacaoController/Delete/5
-    [HttpDelete]
+
+    // -------------------------------------------------------------
+
+    // DELETE: TransacaoController/Delete/{id}
+    [HttpGet]
     [Route("/Delete/{id}")]
     // [ValidateAntiForgeryToken]
-    public ActionResult Delete(int id, IFormCollection collection)
+    public async Task<IActionResult> Delete(int id)
+    {
+        var transacao = await _transacaoService.FindById(id);
+        return View(transacao);
+    }
+
+    // DELETE: TransacaoController/Delete/{id}
+    [HttpPost]
+    [Route("/Delete/{id}")]
+    // [ValidateAntiForgeryToken]
+    public async Task<ActionResult> Delete(int id, [Bind("Id")] TransacaoDTO transacaoDTO)
     {
         try
         {
+            if (id != transacaoDTO.Id)
+                return BadRequest();
+
+            var transacao = await _transacaoService.FindById(transacaoDTO.Id);
+
+            if (transacao == null)
+                return NotFound();
+
+            await  _transacaoService.Delete(transacao.Id);
+
             return RedirectToAction(nameof(Index));
         }
-        catch
+        catch (Exception ex)
         {
-            return View();
+            Console.WriteLine(ex);
+            return StatusCode(500, "Erro interno do servidor");
         }
     }
 }
