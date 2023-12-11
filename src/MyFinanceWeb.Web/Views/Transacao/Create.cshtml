@@ -1,0 +1,33 @@
+@model MyFinanceWeb.Application.DTOs.TransacaoDTOs.TransacaoDTO
+
+@{
+    ViewData["Title"] = "Cadastro de Transação:";
+}
+
+<div>
+    <h2>@ViewData["Title"]</h2>
+</div>
+
+<form asp-controller="Transacao" asp-action="Create" method="post">
+    <!-- Botão de voltar -->
+    <div class="d-flex justify-content-end">
+        <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+    </div>
+
+    <div class="form-group">
+        <label for="Historico">Nome Transação:</label>
+        <input type="text" id="Historico" name="Historico" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Valor">Valor:</label>
+        <input type="number" id="Valor" name="Valor" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Data">Data:</label>
+        <input type="datetime-local" id="Data" name="Data" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Salvar</button>
+</form>
