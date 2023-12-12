@@ -41,17 +41,6 @@ IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Desc
     SET IDENTITY_INSERT [PlanoConta] OFF;
 GO
 
-IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Data', N'Historico', N'PlanoContaId', N'Valor') AND [object_id] = OBJECT_ID(N'[Transacao]'))
-    SET IDENTITY_INSERT [Transacao] ON;
-INSERT INTO [Transacao] ([Id], [Data], [Historico], [PlanoContaId], [Valor])
-VALUES (100, '2022-12-20T14:00:00.0000000', N'Gasolina Viagem', 1, 289.0),
-(200, '2022-12-24T13:30:00.0000000', N'Almoço Família', 3, 289.0),
-(300, '2023-01-05T00:00:00.0000000', N'Salário', 6, 289.0),
-(400, '2023-01-10T13:30:00.0000000', N'IPVA Blazer', 5, 289.0);
-IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Data', N'Historico', N'PlanoContaId', N'Valor') AND [object_id] = OBJECT_ID(N'[Transacao]'))
-    SET IDENTITY_INSERT [Transacao] OFF;
-GO
-
 CREATE INDEX [IX_Transacao_PlanoContaId] ON [Transacao] ([PlanoContaId]);
 GO
 
