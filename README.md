@@ -4,8 +4,8 @@ Esta aplicação deve permitir que o usuário monte uma espécie de Plano de Con
 todas as Transações realizadas.
 
 ## Alunos
-André Da Silva Aquilau
-Adjailson Domingos
+André Da Silva Aquilau <br/>
+Adjailson Domingos <br/>
 João Paulo Barbosa Pertence
 
 ## Iniciando Release do Projeto MyFinance (Deploy)
