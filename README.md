@@ -106,3 +106,32 @@ Ele utiliza o padrão de inversão de controle (IoC) para centralizar a configur
 - O Serviço da Camada de Aplicação utiliza um **repositório** de dados para acessar e manipular os dados no banco de dados.
 - O **AutoMapper** é uma ferramenta comumente utilizada para converter os DTOs em entidades do banco de dados.
 - O Serviço da Camada de Aplicação realiza validações e verificações necessárias antes de executar as operações no banco de dados.
+
+
+### Teste das Funcionalidades
+
+#### Dashboard
+![Fluxo MyFinace](./teste/dashboard.png)
+#### Plano de Contas
+##### Plano de Contas - List
+![Fluxo MyFinace](./teste/plano_contas_list.png)
+##### Plano de Contas - Create
+![Fluxo MyFinace](./teste/plano_contas_create.png)
+##### Plano de Contas - Details
+![Fluxo MyFinace](./teste/plano_contas_show.png)
+##### Plano de Contas - Edit
+![Fluxo MyFinace](./teste/plano_contas_edit.png)
+##### Plano de Contas - Delete
+![Fluxo MyFinace](./teste/plano_contas_delete.png)
+#### Transações
+##### Transações - List
+![Fluxo MyFinace](./teste/plano_contas_list.png)
+##### Transações - Create
+![Fluxo MyFinace](./teste/plano_contas_create.png)
+##### Transações - Details
+![Fluxo MyFinace](./teste/plano_contas_show.png)
+##### Transações - Edit
+![Fluxo MyFinace](./teste/plano_contas_edit.png)
+##### Transações - Delete
+![Fluxo MyFinace](./teste/plano_contas_delete.png)
+
