@@ -68,19 +68,19 @@ public class TransacaoRepository : ITransacaoRepository
         // Seta DataHora atual
         transacao.Data = DateTime.Now;
 
-        var transacaoContaUpdate = await _context.Transacao.FirstOrDefaultAsync(x => x.Id == transacao.Id);
+        // Busca a transacao existente para atualizacao desconectada
+        var existingTransacao = await _context.Transacao.AsNoTracking().FirstOrDefaultAsync(x => x.Id == transacao.Id);
 
-        //Valida se o plano de conta é is null
-        RepositoryExceptionValitation.When(transacaoContaUpdate is null, "Transacao não encontrado!");
+        // Valida se a transacao existe
+        RepositoryExceptionValitation.When(existingTransacao == null, "Transacao não encontrada!");
 
-        //Plano Contas não é nulo!
-        var dataTransacao = transacao!;
-
-        _context.Update(dataTransacao);
+        // Atualiza as propriedades da entidade existente com os valores da entidade desconectada
+        _context.Update(transacao);
 
         await _context.SaveChangesAsync();
 
-        return dataTransacao;
+        return transacao;
     }
+
 }
 
