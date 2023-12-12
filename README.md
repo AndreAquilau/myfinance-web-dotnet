@@ -3,6 +3,10 @@
 Esta aplicação deve permitir que o usuário monte uma espécie de Plano de Contas para categorizar
 todas as Transações realizadas.
 
+## Alunos
+-- André Da Silva Aquilau
+-- 
+
 ## Iniciando Release do Projeto MyFinance (Deploy)
 
 ![Infra](./diagrama/Infra.svg)
@@ -125,13 +129,13 @@ Ele utiliza o padrão de inversão de controle (IoC) para centralizar a configur
 ![Fluxo MyFinace](./teste/plano_contas_delete.png)
 #### Transações
 ##### Transações - List
-![Fluxo MyFinace](./teste/plano_contas_list.png)
+![Fluxo MyFinace](./teste/transacao_list.png)
 ##### Transações - Create
-![Fluxo MyFinace](./teste/plano_contas_create.png)
+![Fluxo MyFinace](./teste/transacao_create.png)
 ##### Transações - Details
-![Fluxo MyFinace](./teste/plano_contas_show.png)
+![Fluxo MyFinace](./teste/transacao_show.png)
 ##### Transações - Edit
-![Fluxo MyFinace](./teste/plano_contas_edit.png)
+![Fluxo MyFinace](./teste/transacao_edit.png)
 ##### Transações - Delete
-![Fluxo MyFinace](./teste/plano_contas_delete.png)
+![Fluxo MyFinace](./teste/transacao_delete.png)
 
