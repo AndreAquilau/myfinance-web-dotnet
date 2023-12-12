@@ -10,14 +10,11 @@
 
 <form asp-controller="Transacao">
     <!-- Botão de voltar -->
-    <div class="d-flex justify-content-end">
-        <a asp-action="Index" class="btn btn-secondary">Voltar</a>
-    </div>
 
-    <!-- Input id do plano de conta -->
+
     <div class="form-group">
-        <label for="PlanoContaId">ID Plano de Conta:</label>
-        <input type="number" id="PlanoContaId" name="PlanoContaId" class="form-control" value="@Model.PlanoContaId" />
+        <select asp-for="PlanoContaId" class="form-control" asp-items="ViewBag.PlanoContaId"></select>
+        <span asp-validation-for="PlanoContaId" class="text-danger"></span>
     </div>
 
     <!-- Input nome da transação -->
@@ -29,7 +26,7 @@
     <!-- Input valor da transação -->
     <div class="form-group">
         <label for="Valor">Valor:</label>
-        <input type="decimal" id="Valor" name="Valor" class="form-control" value="@Model.Valor" />
+        <input type="number" placeholder="0.00" required min="0" value="0" id="Valor" name="Valor" class="form-control" value="@Model.Valor" />
     </div>
 
     <!-- Input data da transação -->
@@ -39,5 +36,11 @@
     </div>
 
     <!-- Confirmar (Submit) -->
-    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Editar</button>
+    <div class="form-group">
+        <h1></h1>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Salvar" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+        </div>
+    </div>
 </form>

@@ -13,7 +13,7 @@ public record TransacaoDTO
 {
     public int Id { get; set; }
 
-    [Required(ErrorMessage = "Campo Historico é obrigatório.")]
+    [Required(ErrorMessage = "Campo Nome Transação é obrigatório.")]
     [MinLength(3, ErrorMessage = "O campo Historico deve ter no mínimo 3 caracteres.")]
     [MaxLength(3, ErrorMessage = "O campo Historico deve ter no máximo 256 caracteres.")]
     [DisplayName("Historico")]

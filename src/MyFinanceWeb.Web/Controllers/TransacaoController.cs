@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MyFinanceWeb.Application.DTOs.PlanoContaDTOs;
 using MyFinanceWeb.Application.DTOs.TransacaoDTOs;
 using MyFinanceWeb.Application.Interfaces;
@@ -31,10 +32,22 @@ public class TransacaoController : Controller
     public async Task<ActionResult> Details(int id)
     {
         var transacao = await _transacaoService.FindById(id);
+        var plan = await _planoContaService.FindById(transacao.PlanoContaId);
+        transacao.PlanoConta = plan;
         return View(transacao);
     }
 
-    // POST: TransacaoController/Create
+    [HttpGet("/Create")]
+    [Route("/Create")]
+    public async Task<IActionResult> Create()
+    {
+        // Busca lista de Plano de Contas
+        IEnumerable<PlanoContaDTO> listPlanoConta = await _planoContaService.FindAll();
+        ViewBag.PlanoContaId = new SelectList(listPlanoConta, "Id", "Descricao");
+
+        return View();
+    }
+        // POST: TransacaoController/Create
     [HttpPost]
     [Route("/Create")]
     //[ValidateAntiForgeryToken]
@@ -47,11 +60,16 @@ public class TransacaoController : Controller
             {
                 // Busca lista de Plano de Contas
                 IEnumerable<PlanoContaDTO> listPlanoConta = await _planoContaService.FindAll();
+                ViewBag.PlanoContaId = new SelectList(listPlanoConta, "Id", "Descricao");
+
                 transacaoDTO.ListPlanoConta = listPlanoConta;
 
                 return View(transacaoDTO);
             }
-            
+
+            Console.WriteLine(transacaoDTO.PlanoContaId);
+
+
             // Chama o serviço para criar a transação
             var transacao = await _transacaoService.Create(transacaoDTO);
 
@@ -81,6 +99,9 @@ public class TransacaoController : Controller
     // [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id)
     {
+        // Busca lista de Plano de Contas
+        IEnumerable<PlanoContaDTO> listPlanoConta = await _planoContaService.FindAll();
+        ViewBag.PlanoContaId = new SelectList(listPlanoConta, "Id", "Descricao");
         var transacao = await _transacaoService.FindById(id);
         return View(transacao);
     }

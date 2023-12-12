@@ -31,7 +31,7 @@ public class UtilRepository : IUtilRepository
                 ISNULL(SUM(IIF(P.Tipo = 'R', Valor, 0.00)), 0.00) AS Receita 
             FROM Transacao T
             INNER JOIN PlanoConta P ON T.PlanoContaId = P.Id
-            WHERE T.Data BETWEEN @pDataInit AND @pDataEnd;
+            WHERE CAST(T.Data AS DATE) BETWEEN @pDataInit AND @pDataEnd;
             ", new object[] { pDataInit, pDataEnd })
             .ToListAsync();
 

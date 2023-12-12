@@ -44,13 +44,14 @@
                 <div class="col-md-10">@Model.Valor</div>
             </div>
         </li>
-    </ul
+    </ul>
 
-    <br />
-
-    <div class="form-group d-flex justify-content-center" style="padding-top: 20px;">
-        <button type="submit" class="btn btn-danger btn-lg">Deletar</button>
-        <a asp-controller="Transacao" asp-action="Index" class="btn btn-secondary btn-lg" style="margin-left: 10px;">Cancelar</a>
+    <div class="form-group">
+        <br/>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Deletar" class="btn btn-danger " />
+            <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+        </div>
     </div>
 
 

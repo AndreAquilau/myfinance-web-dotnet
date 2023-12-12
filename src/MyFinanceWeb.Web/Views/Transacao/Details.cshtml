@@ -9,10 +9,6 @@
 </div>
 
 <form asp-controller="Transacao" >
-    <!-- Botão de voltar -->
-    <div class="d-flex justify-content-end">
-        <a asp-action="Index" class="btn btn-secondary">Voltar</a>
-    </div>
 
     <br />
 
@@ -41,7 +37,7 @@
         <li class="list-group-item bg-light">
             <div class="row">
                 <div class="col-md-2"><b>Plano de Conta Id:</b></div>
-                <div class="col-md-10">@Model.PlanoContaId</div>
+                <div class="col-md-10">@Model.PlanoConta.Descricao</div>
             </div>
         </li>
 
@@ -51,7 +47,16 @@
                 <div class="col-md-10">@Model.Valor</div>
             </div>
         </li>
-    </ul
+    </ul>
+    <!-- Botão de voltar -->
+    <!-- Confirmar (Submit) -->
+    <div class="form-group">
+        <h1></h1>
+        <div class="col-md-offset-2 col-md-10">
+            <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+        </div>
+    </div>
+
 
 </form>
 

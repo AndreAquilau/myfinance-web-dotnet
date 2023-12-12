@@ -8,58 +8,55 @@
     <h2>@ViewData["Title"]</h2>
 </div>
 
-<!-- Botão de voltar -->
-<div class="d-flex justify-content-end">
-    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
-</div>
-
 <form asp-controller="Transacao" asp-action="Create" method="post">
 
     <!-- Exibir List de Planos de Conta -->
     <div class="form-group" style="margin-bottom: 10px;">
-        <label for="PlanoContaId">Selecionar Plano de Conta:</label>
-        
-        @if (Model != null && Model.ListPlanoConta != null)
-        {
-            <select id="PlanoContaIdSelect" name="PlanoContaIdSelect" class="form-control">
-                @foreach (var planoConta in Model.ListPlanoConta)
-                {
-                    <option value="@planoConta.Id">@planoConta.Descricao</option>
-                }
-            </select>
-        }
-        else
+        <label asp-for="PlanoContaId">Selecionar Plano de Conta:</label>
+
+        <select asp-for="PlanoContaId" class="form-control" asp-items="ViewBag.PlanoContaId"></select>
+        <span asp-validation-for="PlanoContaId" class="text-danger"></span>
+
+
+        @if (ViewBag.PlanoContaId == null)
         {
             <p>Lista de planos de conta não disponível.</p>
         }
     </div>
 
     <!-- Input id do plano de conta -->
+    <!--
     <div class="form-group">
         <label for="PlanoContaId">ID Plano de Conta: </label>
-        <input type="number" id="PlanoContaId" name="PlanoContaId" href="PlanoContaId" class="form-control"/>
+        <input type="number" id="PlanoContaId" name="PlanoContaId" href="PlanoContaId" class="form-control" />
     </div>
-
+    -->
     <!-- Input nome da transação -->
     <div class="form-group">
         <label for="Historico">Nome Transação:</label>
-        <input type="text" id="Historico" name="Historico" class="form-control" />
+        <input type="text" id="Historico" name="Historico" class="form-control" required />
     </div>
 
     <!-- Input valor da transação -->
     <div class="form-group">
-        <label for="Valor">Valor:</label>
-        <input type="number" id="Valor" name="Valor" class="form-control" />
+        <label for="Valor">Valor: (0.00)</label>
+        <input type="number" id="Valor" name="Valor" placeholder='0.00' class="form-control" required />
     </div>
 
     <!-- Input data da transação -->
     <div class="form-group">
         <label for="Data">Data:</label>
-        <input type="datetime-local" id="Data" name="Data" class="form-control" />
+        <input type="datetime-local" id="Data" name="Data" class="form-control" required />
     </div>
 
     <!-- Confirmar (Submit) -->
-    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Salvar</button>
+    <div class="form-group">
+        <h1></h1>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Salvar" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+        </div>
+    </div>
 </form>
 
 <script>
@@ -69,12 +66,17 @@
         var numberInput = document.getElementById('PlanoContaId');
         var label = document.getElementById('PlanoContaId');
 
+        /*
         select.addEventListener('change', function () {
             var selectedId = select.value;
             numberInput.value = selectedId;
             label.textContent = selectedId;
-        });
+        });*/
 
         // TODO: Adicionar validador no input PlanoContaId para não permitir vazio
     });
+    var data = document.getElementById('Data');
+    var valor = document.getElementById('Valor');
+    valor.value = 0.00;
+    data.value = new Date().toISOString();
 </script>
