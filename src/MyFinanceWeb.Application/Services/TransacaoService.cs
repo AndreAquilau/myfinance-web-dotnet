@@ -3,22 +3,22 @@ using MyFinanceWeb.Application.DTOs.TransacaoDTOs;
 using MyFinanceWeb.Application.Interfaces;
 using MyFinanceWeb.Domain.Entities;
 using MyFinanceWeb.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyFinanceWeb.Application.Services;
 
 public class TransacaoService : ITransacaoService
 {
     private readonly IMapper _mapper;
+
     private readonly ITransacaoRepository _transacaoRepository;
-    public TransacaoService(ITransacaoRepository transacaoRepository, IMapper mapper)
+
+    private readonly IPlanoContaRepository _planoContaRepository;
+
+    public TransacaoService(IMapper mapper, ITransacaoRepository transacaoRepository, IPlanoContaRepository planoContaRepository)
     {
         _mapper = mapper;
         _transacaoRepository = transacaoRepository ?? throw new ArgumentNullException(nameof(transacaoRepository));
+        _planoContaRepository = planoContaRepository ?? throw new ArgumentNullException(nameof(planoContaRepository));
     }
     public async Task<TransacaoDTO> Create(TransacaoDTO transacaoCreateDTO)
     {
@@ -57,6 +57,12 @@ public class TransacaoService : ITransacaoService
     public async Task<TransacaoDTO> Update(TransacaoDTO transacaoUpdateDTO)
     {
         var transacao = _mapper.Map<Transacao>(transacaoUpdateDTO);
+
+        // Buscar plano de conta
+        var planoConta = await _planoContaRepository.FindById(transacaoUpdateDTO.PlanoContaId);
+        transacao.PlanoConta = _mapper.Map<PlanoConta>(planoConta);
+
+        // Atualizar transação
         var transacaoUpdated = await _transacaoRepository.Update(transacao);
         var transacaoReadDto = _mapper.Map<TransacaoDTO>(transacaoUpdated);
 

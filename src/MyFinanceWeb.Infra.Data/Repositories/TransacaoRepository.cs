@@ -65,6 +65,9 @@ public class TransacaoRepository : ITransacaoRepository
 
     public async Task<Transacao> Update(Transacao transacao)
     {
+        // Seta DataHora atual
+        transacao.Data = DateTime.Now;
+
         var transacaoContaUpdate = await _context.Transacao.FirstOrDefaultAsync(x => x.Id == transacao.Id);
 
         //Valida se o plano de conta é is null

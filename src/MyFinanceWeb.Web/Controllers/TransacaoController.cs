@@ -76,21 +76,46 @@ public class TransacaoController : Controller
     // -------------------------------------------------------------
     
     // PUT: TransacaoController/Edit/{id}
-    [HttpPut]
+    [HttpGet]
     [Route("/Edit/{id}")]
     // [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
+    public async Task<IActionResult> Edit(int id)
+    {
+        var transacao = await _transacaoService.FindById(id);
+        return View(transacao);
+    }
+
+    // PUT: TransacaoController/Edit/{id}
+    [HttpPost]
+    [Route("/Edit/{id}")]
+    // [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, [Bind("Id, Historico, Valor, Data, PlanoContaId")] TransacaoDTO transacaoDTO)
     {
         try
         {
-            return RedirectToAction(nameof(Index));
+            if (id != transacaoDTO.Id)
+                return BadRequest();
+
+            // Chama o serviço para criar a transação
+            var transacao = await _transacaoService.Update(transacaoDTO);
+
+            // Verifica se a transação foi criada com sucesso
+            if (transacao != null)
+                return RedirectToAction("Details", new { id = transacao.Id });
+            else
+            {
+                // Se houve um problema ao criar a transação, retorne para a view de criação com uma mensagem de erro
+                ModelState.AddModelError(string.Empty, "Erro ao editar a transação.");
+                return View();
+            }
+
         }
-        catch
+        catch (Exception ex)
         {
-            return View();
+            Console.WriteLine(ex);
+            return StatusCode(500, "Erro interno do servidor");
         }
     }
-
 
     // -------------------------------------------------------------
 
@@ -120,7 +145,7 @@ public class TransacaoController : Controller
             if (transacao == null)
                 return NotFound();
 
-            await  _transacaoService.Delete(transacao.Id);
+            await _transacaoService.Delete(transacao.Id);
 
             return RedirectToAction(nameof(Index));
         }

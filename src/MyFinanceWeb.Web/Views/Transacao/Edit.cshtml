@@ -1,0 +1,43 @@
+@model MyFinanceWeb.Application.DTOs.TransacaoDTOs.TransacaoDTO
+
+@{
+    ViewData["Title"] = "Editar Transação: " + Model.Historico;
+}
+
+<div>
+    <h2>@ViewData["Title"]</h2>
+</div>
+
+<form asp-controller="Transacao">
+    <!-- Botão de voltar -->
+    <div class="d-flex justify-content-end">
+        <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+    </div>
+
+    <!-- Input id do plano de conta -->
+    <div class="form-group">
+        <label for="PlanoContaId">ID Plano de Conta:</label>
+        <input type="number" id="PlanoContaId" name="PlanoContaId" class="form-control" value="@Model.PlanoContaId" />
+    </div>
+
+    <!-- Input nome da transação -->
+    <div class="form-group">
+        <label for="Historico">Nome Transação:</label>
+        <input type="text" id="Historico" name="Historico" class="form-control" value="@Model.Historico" />
+    </div>
+
+    <!-- Input valor da transação -->
+    <div class="form-group">
+        <label for="Valor">Valor:</label>
+        <input type="decimal" id="Valor" name="Valor" class="form-control" value="@Model.Valor" />
+    </div>
+
+    <!-- Input data da transação -->
+    <div class="form-group">
+        <label for="Data">Data:</label>
+        <input type="datetime-local" id="Data" name="Data" class="form-control" value="@Model.Data.ToString("yyyy-MM-ddTHH:mm")" />
+    </div>
+
+    <!-- Confirmar (Submit) -->
+    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Editar</button>
+</form>
